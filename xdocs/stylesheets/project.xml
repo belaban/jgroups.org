@@ -19,12 +19,10 @@
     
 
         <menu name="Documentation">
-            <item name="Manual"                  href="/ug.html"/>
-            <item name="Tutorial"                href="/tutorial/html/index.html"/>
+            <item name="Manual / tutorial"                    href="/ug.html"/>
             <item name="Javadoc"                 href="/javadoc/index.html"/>
             <item name="Blogs"                   href="/blogs.html"/>
             <item name="Demos"                   href="/demos.html"/>
-            <item name="Papers and Articles"     href="/papers.html"/>
             <item name="Performance"             href="/performance.html"/>
             <item name="HSQLDB/R"                href="/hsqldbr.html"/>
         </menu>
