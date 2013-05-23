@@ -1,0 +1,627 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Performance tests JGroups</title>
+</head>
+<body>
+<h1>Performance tests JGroups</h1>
+<br>
+Author: Bela Ban<br>
+Date: Sept/Oct 2006<br>
+<br>
+<h2>Configuration</h2>
+<br>
+The tests were conducted in the JBoss lab in Atlanta. The cluster
+consists of 8 identical boxes (cluster01-08), where each box is:<br>
+<ul>
+  <li>a Dell PE1850 with</li>
+  <li>4GB memory</li>
+  <li>4 EMT_64 2.99GHz processors</li>
+  <li>RHEL 4<br>
+  </li>
+</ul>
+<div class="section" lang="en"><br>
+The tests were run only on 64-bit systems.<br>
+<br>
+<h3>Switches<span style="color: rgb(255, 0, 0);"></span><br>
+</h3>
+The following switch was used:<br>
+<ul>
+  <li>1GBps: <a
+ href="http://docs.us.dell.com/support/edocs/network/5P788/en/ug/pc5224c1.htm">Dell
+Power Connect 5224 (24 port gige L2 managed switch)</a></li>
+</ul>
+<br>
+<h3>Network</h3>
+Note that neither the network nor the test machines were reserved
+exclusively for the performance tests, so some of<br>
+the fluctuations are explained by the fact that other users/processes
+were using the machines and/or generating traffic on<br>
+the network. This was mitigated somewhat by running all tests in the AM
+hours (8am - 3pm) in Europe, when the servers in<br>
+Atlanta GA were mostly idle. We also use machines which have no cron
+jobs (like cruisecontrol etc) scheduled that could interfere<br>
+with the tests.<br>
+<br>
+<br>
+<h3>JVM configuration</h3>
+The following JVM was used:<br>
+<br>
+SUN: JDK 1.5.0_04-b05 Java HotSpot(TM) Server VM (build 1.5.0_04-b05,
+mixed mode)<br>
+<br>
+The options used for starting the JVMs were:<br>
+<br>
+SUN: -Xmx500M -Xms500M -XX:CompileThreshold=1000 -XX:+UseParallelGC
+-XX:+AggressiveHeap -XX:NewRatio=1 -server
+-Dlog4j.configuration=file:/home/bela/log4j.properties
+-Dresolve.dns=false -Dbind.address=${MYTESTIP_1}<br>
+<br>
+<br>
+<br>
+<br>
+<h2>Design of the tests</h2>
+The goal of the test is to measure the time it takes to reliably send N
+messages to all nodes in a cluster. We are currently not interested in
+measuring the latency of remote group RPC, this may be done in a future
+performance
+test. The test works as follows. <br>
+<ul>
+  <li>All members have access to 2 configuration files: one for
+defining the number of messages to be sent, the number of cluster
+members, senders etc, and the other one defining the JGroups protocol
+stack.</li>
+  <li>N processes are started. They can be started on the same machine,
+but for better results there is one JGroups process / box. In the
+performance test, we started each member on a different node in the
+cluster.<br>
+  </li>
+  <li>The processes join the same group, and when N equals the cluster
+size defined in the configuration file, all senders start sending M
+messages to the cluster (M is also defined in the configuration file).</li>
+  <li>Every node in the cluster receives the messages (senders are also
+receivers). When the first message is received the clock is started.
+When the last message is received the clock is stopped. Every member
+knows how many messages are to be received: &lt;number of senders&gt;
+*&nbsp; &lt;number of messages&gt;. This allows every receiver to
+compute the message rate and throughput (we also know the size of each
+message).</li>
+</ul>
+The test is part of JGroups: org.jgroups.tests.perf.Test. The driver is
+JGroups independent and can also be used to measure JMS performance and
+pure UDP or TCP performance (all that needs to be done is to write a
+Transport interface implementation, with a send() and a receive()).<br>
+<br>
+The configuration file (config.txt) is shown below (only the JGroups
+configuration is shown):<br>
+<small><small><small><samp><code><br>
+# Class implementing the org.jgroups.tests.perf.Transport interface<br>
+<br>
+transport=org.jgroups.tests.perf.transports.JGroupsTransport<br>
+#transport=org.jgroups.tests.perf.transports.UdpTransport<br>
+#transport=org.jgroups.tests.perf.transports.TcpTransport<br>
+<br>
+# Number of messages a sender multicasts<br>
+num_msgs=1000000<br>
+<br>
+# Message size in bytes.<br>
+msg_size=1000<br>
+<br>
+# Expected number of group members.<br>
+num_members=2<br>
+<br>
+# Number of senders in the group. Min 1, max num_members.<br>
+num_senders=2<br>
+<br>
+# dump stats every n msgs<br>
+log_interval=100000<br>
+</code></samp></small></small></small><br>
+This file must be the same for all nodes, so it is suggested to place
+it in a shared file system, e.g. an NFS mounted directory.<br>
+The following parameters are used:<br>
+<br>
+<table style="text-align: left; width: 953px; height: 167px;" border="1"
+ cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">transport<br>
+      </td>
+      <td style="vertical-align: top;">An implementation of Transport,
+for our tests we used the JGroupsTransport<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">num_msgs<br>
+      </td>
+      <td style="vertical-align: top;">Number of messages to be sent by
+a sender<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">msg_size<br>
+      </td>
+      <td style="vertical-align: top;">Number of bytes of a single
+message<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">num_members<br>
+      </td>
+      <td style="vertical-align: top;">Number of members. When members
+are started, they wait until num_members nodes have joined the cluster,
+and then the senders start sending messages<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">num_senders<br>
+      </td>
+      <td style="vertical-align: top;">Number of senders (must be less
+then or equal to num_members). This allows each receiver to compute the
+total number of messages to be received: num_senders * num_msgs. In the
+example, we'll receive 2000000 messages (2 * 1M messages)<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">log_interval<br>
+      </td>
+      <td style="vertical-align: top;">Output about sent and received
+messages will be output to stdout (and to file if -f is used (see
+below)) every log_interval messages<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+The options for the test driver are:<br>
+<samp>bela@laptop /cygdrive/c<br>
+$ java org.jgroups.tests.perf.Test -help<br>
+Test [-help] ([-sender] | [-receiver]) [-config &lt;config file&gt;]
+[-props &lt;stack config&gt;] [-verbose] [-jmx] [-dump_stats] [-f
+&lt;filename&gt;]</samp><br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">-sender / -
+receiver<br>
+      </td>
+      <td style="vertical-align: top;">Whether this process is a sender
+or a receiver (a sender is always a receiver as well)<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">-config
+&lt;file&gt;<br>
+      </td>
+      <td style="vertical-align: top;">Points to the configuration
+file, e.g. -config /home/bela/config.txt<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">-props
+&lt;props&gt;<br>
+      </td>
+      <td style="vertical-align: top;">The JGroups protocol stack
+configuration. Example: -props c:\fc-fast-minimalthreads.xml. Can be
+any URL or filename<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">-verbose<br>
+      </td>
+      <td style="vertical-align: top;">Verbose output<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">-jmx<br>
+      </td>
+      <td style="vertical-align: top;">Enables JMX instrumentation
+(requires JVM with JMX MBeanServer, e.g. JDK5). This will cause the VM
+not to terminate when done. To access the process via JMX, the
+-Dcom.sun.management.jmxremote property has to be defined and jconsole
+can be used. For more details see <a
+ href="http://wiki.jboss.org/wiki/Wiki.jsp?page=JMX">http://wiki.jboss.org/wiki/Wiki.jsp?page=JMX</a>.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">-dump_stats<br>
+      </td>
+      <td style="vertical-align: top;">Dumps some JMX statistics after
+the run, e.g. number of messages sent, number of times blocked etc<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">-f
+&lt;filename&gt;<br>
+      </td>
+      <td style="vertical-align: top;">Dumps number of messages sent,
+message rate, throughput, current time, free and total memory to
+&lt;filename&gt; every log_interval milliseonds. This is the main tool
+to generate charts on memory behavior or message rate variance<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; font-weight: bold;">-help<br>
+      </td>
+      <td style="vertical-align: top;">This help<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+The files needed to run te tests are included with JGroups (source
+distribution) as well: JGroups/conf/config.txt is the configuration
+file, and JGroups/conf/fc-fast-minimalthreads.xml is the stack.
+However, note that all the test runs will have the JGroups stack
+configuration file included so that they can be reproduced.<br>
+<br>
+For additional details on how to run the tests refer to <a
+ href="http://wiki.jboss.org/wiki/Wiki.jsp?page=PerfTests">http://wiki.jboss.org/wiki/Wiki.jsp?page=PerfTests</a>.
+<br>
+<br>
+<br>
+<h2>Parameters</h2>
+The parameters that are varied are:<br>
+<ul>
+  <li>Cluster size: 4, 6 (only with UDP) and 8</li>
+  <li>Number of senders: 1, N/2 and N (where N is the cluster size)</li>
+  <li>Number of messages: this is computed according to the input
+parameters of <a
+ href="http://wiki.jboss.org/wiki/Wiki.jsp?page=AutomatedPerfTests">http://wiki.jboss.org/wiki/Wiki.jsp?page=AutomatedPerfTests</a>.
+The goal is to have approximately the same number of bytes sent for
+each test. So, if we want to send 1M messages and have 8 senders, each
+sender will send 125K messages. If we only have 1 sender, that sender
+will send 1M messages.<br>
+  </li>
+  <li>Message size: 1K, 2.5K and 5K<br>
+  </li>
+  <li>Switch: 1Gbps switch (see above)<br>
+  </li>
+  <li>Protocols: IP multicast-based transport
+(fc-fast-minimalthreads.xml) and TCP-based transport (tcp-nio.xml)<br>
+  </li>
+  <li>JVMs: SUN JDK5 (see above)</li>
+  <li>JGroups: 2.4<br>
+  </li>
+</ul>
+<br>
+<h2>Results</h2>
+The plain results are available <a href="./4-nodes">here </a>for the
+4 node
+cluster, <a href="./6-nodes">here </a>for the 6 node cluster and <a
+ href="./8-nodes">here </a>for the 8 node cluster. The OpenOffice
+spreadsheet containing all results can be obtained <a
+ href="charts/perf.ods">here</a>. <br>
+The performance
+tests were run on the 3 clusters, measuring message rate (messages
+received/sec) and throughput (MB received/sec), as described in <a
+ href="http://wiki.jboss.org/wiki/Wiki.jsp?page=PerfTests">http://wiki.jboss.org/wiki/Wiki.jsp?page=PerfTests</a>.<br>
+The JGroups configurations used are:<br>
+<ul>
+  <li>UDP (<a href="stack-config/fc-fast-minimalthreads.xml">fc-fast-minimalthreads.xml</a>):
+uses IP multicast in the transport, with flow control<br>
+  </li>
+  <li>TCP (<a href="stack-config/tcp_nio.xml">tcp-nio.xml</a>): uses
+multiple NIO-based TCP connections in the transport</li>
+</ul>
+<br>
+<h3>Message rate and throughput</h3>
+The Y axes define message rate and throughput. The message rate is
+computed as &lt;number of messages sent&gt; * &lt;number of senders&gt;
+/ &lt;time to receive all messages&gt;. For example, a message rate of
+35000 for 1K means that a receiver received 35000 1K messages on
+average per second. On average means that - at the end of a test run -
+all nodes post their results, which are collected, summed up and
+divided by the number of nodes. So if we have 2 nodes, and they post
+message rates of 10000 and 20000, the average messsage rate will be
+15000.<br>
+The throughput is simply the average message rate times the message
+size.<br>
+<br>
+<br>
+<h3>4 node cluster</h3>
+<br>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
+ cellspacing="2">
+  <caption align="bottom"><br>
+  </caption><tbody>
+    <tr>
+      <td style="vertical-align: top;"><img
+ style="width: 557px; height: 376px;" alt=""
+ src="charts/4NodesMsgsUDP.png"><br>
+      </td>
+      <td style="vertical-align: top;"><img
+ style="width: 568px; height: 375px;" alt=""
+ src="charts/4NodesMsgsTCP.png"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><img
+ style="width: 567px; height: 389px;" alt=""
+ src="charts/4NodesThroughputUDP.png"><br>
+      </td>
+      <td style="vertical-align: top;"><img
+ style="width: 572px; height: 388px;" alt=""
+ src="charts/4NodesThroughputTCP.png"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+For the 4 node cluster, we only measured 1K and 5K messages. The
+message rate for UDP (using IP multicasting) is relatively stable for
+1, 2 and 4 senders. In the TCP case, we can see that the message rate
+for 1 sender for 1K messages is slightly lower, then catches up for
+larger messages and more senders. In both cases, the message rate for
+5K messages is lower than that for 1K, but the aggregate throughput is
+s about the same. <br>
+We get an average message rate of between 35000 and 40000 1K messages
+and 5000-8000 5K messages for UDP, and between 25000 and 45000 1K
+messages and 7000-10000 5K messages for TCP.<br>
+<br>
+<br>
+<br>
+<h3>6 node cluster</h3>
+<br>
+<img style="width: 553px; height: 393px;" alt=""
+ title="Messages/sec for a 6 node cluster with UDP"
+ src="charts/6NodesMsgsUDP.png"><br>
+<br>
+<br>
+<img style="width: 557px; height: 389px;" alt=""
+ title="Throughout (MB/sec) for a 6 node UDP cluster"
+ src="charts/6NodesThroughputUDP.png"><br>
+<br>
+<br>
+For lack of availability of the entire cluster, we could only measure
+UDP with the 6 node cluster. The numbers shown above are somewhat
+contradictory to the rest of the tests: they show that the message rate
+and throughput decreases with increasing cluster size. The absolute
+numbers are also worse than for the 4-node and 8-node cluster ! A
+possible explanation is that since 2 machines were not available to us,
+these 2 machines might have generated network traffic, negatively
+affecting our tests.<br>
+<br>
+<br>
+<h3>8 node cluster</h3>
+<br>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><img
+ style="width: 536px; height: 373px;" alt=""
+ src="charts/8NodesMsgsUDP.png"><br>
+      </td>
+      <td style="vertical-align: top;"><img
+ style="width: 536px; height: 373px;" alt=""
+ src="charts/8NodesMsgsTCP.png"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><img
+ style="width: 535px; height: 361px;" alt=""
+ src="charts/8NodesThroughputUDP.png"><br>
+      </td>
+      <td style="vertical-align: top;"><img
+ style="width: 534px; height: 361px;" alt=""
+ src="charts/8NodesThroughputTCP.png"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+The 8 node UDP cluster exhibits similar characteristics as the 4 node
+cluster: for 1 sender, the results are good, then they go down slightly
+for 4 senders, and go up again for 8 senders. With TCP, this is
+different: the numbers for 1 sender are lower than for UDP, but go up
+for 4 and 8 senders and pass UDP at 4 senders. <br>
+With UDP, the messages rates for 1, 4 and 8 senders (sending 1K
+messages) don't vary much (23732, 24270 and 28994 messages/sec). The
+same goes for 2.5K messages. However, there is bigger variation for 5K
+messages.<br>
+For TCP throughput, 1 sender sends messages at around 14MB/sec, 4
+senders climb to 36MB/sec and 8 senders to 50MB/sec, regardless of the
+message size.<br>
+<br>
+<h2>Interpretation of results</h2>
+<h3>General</h3>
+All of the tests were conducted with a relatively conservative
+configuration, which would allow for the tests to be run for an
+extended period of time. For example, the number of credits in flow
+control was relatively small. Had we set them to a higher value, we
+would have probably gotten better results, but the tests would not have
+been able to run for an extended period of time without running out of
+memory. For instance, the number of credits should be a function of the
+group size (more credits for more nodes in the cluster), however, we
+used (more or less) the same configuration for all tests. We will
+introduce an enhanced version of the flow control protocol which
+dynamically adapts credits, e.g. based on free memory, loss rate etc,
+in <a href="http://jira.jboss.com/jira/browse/JGRP-2">http://jira.jboss.com/jira/browse/JGRP-2</a>.<br>
+Another issue is the use of a gigabit ethernet switch. As shown in
+previous tests (<a
+ href="http://www.jgroups.org/javagroupsnew/docs/Perftest.html">http://www.jgroups.org/javagroupsnew/docs/Perftest.html</a>),
+JGroups does saturate a 100Mbps switch with clusters up to 8 nodes,
+with roughly 11-11.5MB/sec. However, for the GB switch, where we could
+receive a max of ca 125MB/sec, the results show that we are far from
+reaching that number. However, the numbers shown are probably more than
+good enough for most applications using JGroups, especially if
+traffic-reducing mechanisms such as <a
+ href="http://docs.jboss.org/jbossas/jboss4guide/r5/html/cluster.chapt.html#clustering-http-field">field-based
+replication for HTTP sessions</a> are used.<br>
+Some reasons might be (needs further investigation):<br>
+<ul>
+  <li>We don't currently use <a
+ href="http://en.wikipedia.org/wiki/Jumbo_Frames">jumbo frames</a>, but
+rather the default MTU of 1500 for ethernet. Jumbo frames allow for
+large IP packets to be sent on the ethernet. If we have a UDP datagram
+of 20K to send, and we have an MTU of 1500 bytes, the IP layer needs to
+fragment the datagram into 14 IP packets, whereas if we had an MTU of
+9000 bytes, it would have to send only 3 IP packets. So if only one IP
+packet is lost, because we have to retransmit the entire datagram, the
+IP layer would have to re-send 14 or 3 packets respetively. See also <a
+ href="http://wiki.jboss.org/wiki/Wiki.jsp?page=MTU">this discussion</a>
+for ramifications regarding JGroups.</li>
+  <li>With jumbo frames we might be able to essentially transmit more
+data at almost the same message rate, so throughput might increase
+throughput dramatically. Needs to be investigated though.</li>
+  <li>Static flow control in JGroups: FC doesn't dynamically adjust the
+number of credits based on the number of nodes in a cluster, but this
+is defined statically in the config file. We suspect these settings are
+okay for smaller clusters, but would need to be adjusted for larger
+clusters. We plan to write a new flow control protocol in <a
+ href="http://jira.jboss.com/jira/browse/JGRP-2">JGroups 2.6</a>, which
+is based on credits (like the existing one), but also takes into
+account latency, message loss and number of retransmissions and free
+memory.<br>
+  </li>
+  <li>No OS/NIC optimizations: in RHEL (and other Linux distributions),
+buffer sizes (IP, network card) for incoming packets, and other
+parameters can be configured. For example, larger buffer sizes lead to
+less chance of losing packets because of full buffers.</li>
+  <li>No switch optimization: we used the GB switch unchanged and
+haven't yet investigated switch tuning. For example, if the switch
+implements traffic prioritization (e.g. <a
+ href="http://en.wikipedia.org/wiki/IEEE_802.1p">802.1p</a>), then IP
+multicasts have low priority. Same goes for <a
+ href="http://www.cisco.com/warp/public/473/22.html">IGMP snooping</a>:
+when enabled, it slows the switch/router down because each single
+multicast packet has to be examined for whether it is an IGMP packet,
+or just a regular multicast packet. If disabled, the multicasts would
+be copied to all ports, which doesn't matter in our test because all
+ports have 1 multicast member connected.<br>
+  </li>
+  <li>Logging: we log performance data to disk every N messages
+(default=100000). During the tests we logged to an NFS mounted file
+system, which incurs one RPC. It would have been better to log to a
+local disk (e.g. /tmp), but we didn't want to change the tests half-way
+through<br>
+  </li>
+</ul>
+<br>
+<h3>Processing of messages and scalability</h3>
+The <a href="http://wiki.jboss.org/wiki/Wiki.jsp?page=PerfTests">test
+program</a> currently doesn't do any processing at the receiver when a
+message is received. Instead, a message counter is increased and the
+size added to the total number of messages received so far. This is of
+course an ideal situation, and not realistic for normal use, where
+receivers might unmarshal the message's byte buffer into something
+meaningful (e.g. an HTTP session), and process it (e.g. updating an
+HTTP session). (The test by the way allows to take processing time at
+the receiver into account by setting the processing_delay value). As a
+matter of fact, we have found in other tests (JBossCache, JBoss HTTP
+session replication) that the majority of the time is spent in
+marshalling and (especially) unmarshalling (serialization) of
+application data, rather than in JGroups. Until and unless marshalling
+times are reduced, the performance of JGroups will not even matter much.<br>
+What does matter, however, is that (for JGroups 2.4) if we do have some
+processing time at the receiver, then incoming requests - even from
+different senders - have to wait in a queue to be processed. So if a
+receiver R receives messages A.M1 (M1 from A), B.M10, B.M11, B.M12 and
+A.M2, then B.M{10-12} and A.M2 will have to wait until A.M1 has been
+processed. Then B.M10 will be processed and B.M{11-12} and A.M2 will
+have to wait, and so on.<br>
+This will be changed in <a
+ href="http://jira.jboss.com/jira/browse/JGRP-181">JGroups 2.5 with the
+threadless stack</a>, where JGroups can be configured to process
+messages from different senders <span style="font-style: italic;">concurrently</span>.
+For example, in the above case, JGroups could be configured to process
+all messages from A and B in separate threads (say T1 and T2), so T1
+would process A.M{1-2} and T2 would process B.M{10-12}. This would
+allow for concurrent processing of A.M1 and B.M10, which increases
+performance, compared to the single-queue case above.<br>
+We will investigate whether the threadless stack increases performance
+for the performance tests, where no processing is done at the receiver.<br>
+<br>
+<br>
+<h3>UDP versus TCP</h3>
+As can be seen with the 4 and 8 node clusters, TCP has better
+performance than UDP when more than one sender is sending messages.
+Since both UDP (<a href="stack-config/fc-fast-minimalthreads.xml">fc-fast-minimalthreads.xml</a>)
+and TCP (<a href="stack-config/tcp_nio.xml">tcp_nio.xml</a>) use flow
+control (FC), the problem cannot be flow control. There are multiple
+issues that could contribute to this, some of them being (needs to be
+investigated more):<br>
+<ul>
+  <li>Switch related</li>
+  <ul>
+    <li>Switches are generally unfavorable of IP multicast traffic (the
+only other traffic which is treated worse is broadcast). We need to
+investigate whether the switch implements a traffic shaping like
+priority mechanism whereby packets of lesser priority are discarded on
+congestion. Note, however, that since the performance test should be
+the only application running in the cluster during the time slot
+allotted to the tests, this may not be an issue.</li>
+    <li>Full/half duplex. We need to make sure that all ports run in
+full-duplex mode (verified). We also need to look into whether flow
+control is enabled on the switch. This sometimes negatively impacts
+flow control implemented on the protocol level, e.g. TCP, or the
+application level (JGroups).</li>
+    <li>Todo: run the performance tests and compare the statistics on
+the switch before and after, e.g. number of packets dropped</li>
+    <li>Todo: look into disabling IGMP snooping (which has some
+overhead checking all IP multicast packets whether they're IGMP)<br>
+    </li>
+  </ul>
+  <li>More efficient retransmission in TCP. This is an assumption and
+needs to be verified. We need to monitor the loss/retransmission rate
+for our tests and measure retransmission time.<br>
+  </li>
+</ul>
+<br>
+<h3>Fluctuation of results (reproduceability)</h3>
+As there was no reservation for the cluster labs (this was done by
+sending around emails), it is possible that some other applications
+were sometimes using the lab, generating network traffic and using CPU
+cycles, and thus distorting the results. Although we used the lab
+(based in Atlanta, GA) early in the morning (9am-2pm UST, 3am-8am EST),
+there's still a chance that a cron job was started, or someone from a
+different time zone was using the lab. We usually verified that no
+other application was running before starting our tests (by using last,
+top, who, ps for example), but that doesn't prevent some other
+application from starting <span style="font-style: italic;">during </span>our
+test runs.<br>
+<br>
+<h2>Conclusion and outlook</h2>
+We showed that performance of JGroups is good for clusters ranging from
+4 to 8 nodes. TCP scales better than UDP, however it also creates a
+mesh of connections (every sender needs to be connected to everyone
+else in the cluster), which may not scale to large clusters.<br>
+We intend to measure the performance of larger clusters (16 - 64 nodes)
+in the next round of benchmarks.<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</div>
+</body>
+</html>

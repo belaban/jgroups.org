@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Programmer's Guide</title>
+  </properties>
+
+<body>
+
+<section name="Programer's Guide">
+<p>
+
+The Programmer's Guide is not available yet. I plan to start working
+on it real soon and want to have a first version finished in the
+Aug/Sept 2002 timeframe. This version will have to be purchased.
+
+<br/>
+In the meantime, since the concepts underlying the architecture of
+JGroups have not changed much, I suggest to check out the User's
+Guide for version 1.0 of JGroups since it also contains some
+architectural discussion.
+
+</p>
+</section>
+
+
+</body>
+</document>
+

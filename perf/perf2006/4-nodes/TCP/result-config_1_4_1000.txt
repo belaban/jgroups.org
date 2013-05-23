@@ -1,0 +1,47 @@
+
+
+----------------------- TEST -----------------------
+Date: Fri Aug 18 06:40:53 EDT 2006
+Run by: bela
+
+log_interval:	100000
+msg_size:	1000
+config:	./config_1_4_1000.txt
+transport:	org.jgroups.tests.perf.transports.JGroupsTransport
+num_senders:	1
+sender:	false
+gnuplot_output:	true
+props:	/home/bela/tcp_nio.xml
+num_msgs:	1000000
+num_members:	4
+JGroups version: 2.4CR1
+
+
+##### msgs_received, current time (in ms), msgs/sec, throughput/sec [KB], free_mem [KB] , total_mem [KB] 
+100000 1155897659994 22436.62 22436616.56 386974.744 499712.0
+200000 1155897663668 24597.22 24597220.51 436379.48 499712.0
+300000 1155897667719 24626.5 24626498.11 399322.392 519045.12
+400000 1155897671539 24996.88 24996875.39 382071.696 519045.12
+500000 1155897675359 25224.5 25224498.03 364381.712 519045.12
+600000 1155897679461 25079.42 25079418.16 346647.92 519045.12
+700000 1155897683416 25108.5 25108504.61 328813.376 519045.12
+800000 1155897687455 25064.23 25064227.08 493730.72 518062.08
+900000 1155897691549 24991.67 24991669.44 472965.736 518389.76
+1000000 1155897695571 24978.77 24978768.05 453359.032 518455.296
+
+-- results:
+
+10.68.28.33:7800 (myself):
+num_msgs_expected=1000000, num_msgs_received=1000000 (loss rate=0.0%), received=1000MB, time=40034ms, msgs/sec=24978.77, throughput=24.98MB/sec
+
+10.68.20.33:7800:
+num_msgs_expected=1000000, num_msgs_received=1000000 (loss rate=0.0%), received=1000MB, time=40041ms, msgs/sec=24974.4, throughput=24.97MB/sec
+
+10.68.24.33:7800:
+num_msgs_expected=1000000, num_msgs_received=1000000 (loss rate=0.0%), received=1000MB, time=40040ms, msgs/sec=24975.02, throughput=24.98MB/sec
+
+10.68.16.33:7800:
+num_msgs_expected=1000000, num_msgs_received=1000000 (loss rate=0.0%), received=1000MB, time=40037ms, msgs/sec=24976.9, throughput=24.98MB/sec
+
+combined: 24976.27 msgs/sec averaged over all receivers
+

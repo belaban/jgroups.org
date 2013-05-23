@@ -1,0 +1,1160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+
+
+	
+  
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
+
+
+	
+	
+  
+  
+  <title>JGroups TCP_NIO Perftest</title>
+  <meta name="GENERATOR" content="OpenOffice.org 1.1.4  (Linux)">
+
+
+	
+  
+  <meta name="AUTHOR" content="Qiang Alex Fu">
+
+
+	
+  
+  <meta name="CREATED" content="20051123;9420000">
+
+
+	
+  
+  <meta name="CHANGED" content="20051220;10193100">
+
+
+	
+  
+  <style>
+	<!--
+		@page { size: 8.5in 11in; margin-right: 1.25in; margin-top: 1in; margin-bottom: 1in }
+		P { margin-bottom: 0.08in; direction: ltr; color: #000000; text-align: left; widows: 2; orphans: 2 }
+		P.western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.cjk { font-family: "SimSun", "宋体"; font-size: 12pt; so-language: zh-CN }
+		P.ctl { font-family: "Times New Roman", serif; font-size: 12pt; so-language: ar-SA }
+		H2 { margin-bottom: 0.04in; direction: ltr; color: #000000; text-align: left; widows: 2; orphans: 2 }
+		H2.western { font-family: "Arial", sans-serif; font-size: 14pt; so-language: en-US; font-style: italic }
+		H2.cjk { font-family: "SimSun", "宋体"; font-size: 14pt; so-language: zh-CN; font-style: italic }
+		H2.ctl { font-family: "Arial", sans-serif; font-size: 14pt; so-language: ar-SA; font-style: italic }
+		H3 { margin-bottom: 0.04in; direction: ltr; color: #000000; text-align: left; widows: 2; orphans: 2 }
+		H3.western { font-family: "Arial", sans-serif; font-size: 13pt; so-language: en-US }
+		H3.cjk { font-family: "SimSun", "宋体"; font-size: 13pt; so-language: zh-CN }
+		H3.ctl { font-family: "Arial", sans-serif; font-size: 13pt; so-language: ar-SA }
+		P.ww-table-contents111111111-western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.ww-table-contents111111111-cjk { font-family: "SimSun", "宋体"; font-size: 12pt; so-language: zh-CN }
+		P.ww-table-contents111111111-ctl { font-family: "Times New Roman", serif; font-size: 12pt; so-language: ar-SA }
+		P.ww-table-contents1111111111-western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US }
+		P.ww-table-contents1111111111-cjk { font-family: "SimSun", "宋体"; font-size: 12pt; so-language: zh-CN }
+		P.ww-table-contents1111111111-ctl { font-family: "Times New Roman", serif; font-size: 12pt; so-language: ar-SA }
+		P.ww-table-heading111111111-western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US; font-style: italic; font-weight: bold; text-align: center }
+		P.ww-table-heading111111111-cjk { font-family: "SimSun", "宋体"; font-size: 12pt; so-language: zh-CN; font-style: italic; font-weight: bold; text-align: center }
+		P.ww-table-heading111111111-ctl { font-family: "Times New Roman", serif; font-size: 12pt; so-language: ar-SA; font-style: italic; font-weight: bold; text-align: center }
+		P.ww-table-heading1111111111-western { font-family: "Times New Roman", serif; font-size: 12pt; so-language: en-US; font-style: italic; font-weight: bold; text-align: center }
+		P.ww-table-heading1111111111-cjk { font-family: "SimSun", "宋体"; font-size: 12pt; so-language: zh-CN; font-style: italic; font-weight: bold; text-align: center }
+		P.ww-table-heading1111111111-ctl { font-family: "Times New Roman", serif; font-size: 12pt; so-language: ar-SA; font-style: italic; font-weight: bold; text-align: center }
+	-->
+	</style>
+</head>
+
+
+<body style="direction: ltr;" lang="de-DE">
+
+
+<h2 style="text-align: center; font-family: Helvetica,Arial,sans-serif;" class="western" lang="en-US">JGroups
+Non-blocking TCP_NIO support</h2>
+
+<div style="text-align: center; font-family: Helvetica,Arial,sans-serif;">
+</div>
+
+<p class="western" style="margin-bottom: 0in; text-align: center; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+Scott Marlow  --- Novell, Inc.</p>
+
+
+<p class="western" style="margin-bottom: 0in; text-align: center; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+Alex Fu --- Novell, Inc.</p>
+
+
+<p class="western" style="margin-bottom: 0in; text-align: center; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">JGroups
+version 2.2.9 includes a new implementation of TCP_NIO which is
+compared against the performance of TCP (blocking) implementation.</p>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">The
+JGroups TCP protocol implementation requires a Java thread for
+handling every incoming connection because read/write operations are
+blocking.  The JGroups TCP_NIO protocol is based on the &ldquo;new I/O&rdquo;
+(NIO) APIs which allow a Java thread to handle one or more
+connections in non-blocking mode.  TCP_NIO should be more scalable
+for large clusters than TCP.</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"></p>
+<hr style="width: 100%; height: 2px; font-family: Helvetica,Arial,sans-serif;">
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+
+</p>
+
+
+<h2 style="text-align: left; font-family: Helvetica,Arial,sans-serif;" class="western" lang="en-US">Design considerations</h2>
+
+<div style="text-align: center; font-family: Helvetica,Arial,sans-serif;">
+</div>
+
+<h3 class="western" style="page-break-after: avoid; text-align: left; font-family: Helvetica,Arial,sans-serif;" lang="en-US">Contended
+locks versus near zero shared memory</h3>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">One way to
+avoid contention in a multi-threaded program is by not sharing
+variables between threads.  This avoids the need to enter a
+synchronization block before reading or writing to the variable
+(improving scalability).</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+
+</p>
+
+
+<table style="font-family: Helvetica,Arial,sans-serif;" border="1" bordercolor="#000000" cellpadding="4" cellspacing="0" width="577">
+
+
+	<col width="130">
+	<col width="429">
+	<thead>
+		<tr valign="top">
+
+
+			<td width="130">
+				
+    
+    <p class="ww-table-heading111111111-western" lang="en-US">NOT
+				SHARED</p>
+
+
+			</td>
+
+
+			<td width="429">
+				
+    
+    <p class="ww-table-heading111111111-western" lang="en-US">COMMENT</p>
+
+
+			</td>
+
+
+		</tr>
+
+
+	</thead>
+	<tbody>
+
+
+		<tr valign="top">
+
+
+			<td width="130">
+				
+      
+      <p class="ww-table-contents111111111-western" lang="en-US"><font size="2">Read/Write
+				Selector</font></p>
+
+
+			</td>
+
+
+			<td width="429">
+				
+      
+      <p class="ww-table-contents111111111-western" lang="en-US"><font size="2">Each
+				read/write handler thread has its own Selector for registering
+				socket channels and determining socket channel read/write status.</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+		<tr valign="top">
+
+
+			<td width="130">
+				
+      
+      <p class="ww-table-contents111111111-western" lang="en-US"><font size="2">Header
+				ByteBuffer</font></p>
+
+
+			</td>
+
+
+			<td width="429">
+				
+      
+      <p class="ww-table-contents111111111-western" lang="en-US"><font size="2">The
+				buffer for reading/writing the fixed size header can be reused by
+				each read/write handler thread.  By not sharing these buffers,
+				avoid contention on a shared buffer pool that could have been
+				used (at the cost of higher memory consumption).</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+		<tr valign="top">
+
+
+			<td width="130">
+				
+      
+      <p class="ww-table-contents111111111-western" lang="en-US"><font size="2">List
+				of WriteRequest Buffers per connection</font></p>
+
+
+			</td>
+
+
+			<td width="429">
+				
+      
+      <p class="ww-table-contents111111111-western" lang="en-US"><font size="2">Application
+				threads put a request to write data into the Write Handler Queue.
+				 The Write Handler thread moves the request onto the WriteRequest
+				list for which the Write Handler will process.</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+		<tr valign="top">
+
+
+			<td width="130">
+				
+      
+      <p class="ww-table-contents111111111-western" lang="en-US"><font size="2">Pending
+				Write Count</font></p>
+
+
+			</td>
+
+
+			<td width="429">
+				
+      
+      <p class="ww-table-contents111111111-western" lang="en-US"><font size="2">Keeps
+				careful track of the number of pending write operations.  Write
+				Handler blocks on Write Handler Queue when this is zero otherwise
+				on Selector.select().</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+	
+  
+  </tbody>
+</table>
+
+
+<h3 class="western" style="page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+<br>
+
+
+</h3>
+
+
+<h3 style="text-align: left; font-family: Helvetica,Arial,sans-serif;" class="western" lang="en-US">Handle Non-blocking Write Operations</h3>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">The naive
+expectation is that NIO doesn't require you to handle write
+operations in a non-blocking fashion.  After all, why shouldn't you
+be able to enable non-blocking mode for a socket connection and only
+handle read operations as non-blocking.  The truth is when you enable
+non-blocking mode, write operations will never block, whether you
+register your interest in OP_WRITE or not.  Failure to handle write
+operations properly will result in a busy loop when writing to the
+socket connection.  Of course, TCP_NIO is handling write operations
+as non-blocking operations.<br>
+
+</p>
+
+
+<h3 class="western" style="page-break-before: always; font-family: Helvetica,Arial,sans-serif;" lang="en-US">Minimize
+Selector Registration Operations</h3>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">NIO has
+the concept of a Selector which is a multiplexer of channels.  The
+Selector &ldquo;select()&rdquo; returns an indication of which channels are
+ready (data is available to read or channel is ready for write
+operations).  Socket connections have to be registered with the 
+Selector along with the &ldquo;interested in&rdquo; bit mask.  To indicate
+interest in write operations, &ldquo;SelectionKey.OP_WRITE&rdquo; is included
+in the Selector &ldquo;register()&rdquo; call.  The call to &ldquo;register()&rdquo;
+may block for a while if another thread is in the middle of a call to
+the Selector &ldquo;select()&rdquo;.  This can be a performance bottleneck in
+the NIO application.  TCP_NIO deals with this by doing the Selector
+&ldquo;register()&rdquo; in the same thread that is already doing the
+Selector &ldquo;select()&rdquo;.</p>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">After the
+write operation is completed, TCP_NIO leaves the socket connection
+registered but clears the OP_WRITE flag (it is enabled before the
+next write).  This minimizes the number of times that the socket
+connection is registered with the Selector.  Alternative is to
+register/cancel the socket with the Selector every time a write
+operation needs to happen (performance will suffer with this
+approach).</p>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">For read
+operations, TCP_NIO always wants to know when there is data to be
+read.  The &ldquo;SelectionKey.OP_READ&rdquo; is included in the Selector
+&ldquo;register()&rdquo; call and left enabled until the socket connection is
+closed.</p>
+
+
+<span style="font-family: Helvetica,Arial,sans-serif;"><br>
+
+</span>
+<h3 class="western" style="page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US">Handling
+Multiple Event Sources</h3>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">TCP_NIO
+creates separate threads for reading/writing from/to the socket
+connections.    NIO allows a single thread to handle many different
+&ldquo;registered&rdquo; socket connections, however, NIO only deals with NIO
+type events.  Other event sources also need to be handled in the NIO
+reader/writer threads.</p>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">The read
+handling threads need to deal with the following events
+{Data_Available, New_Connection }.  The ReadHandler thread learns of
+Data_Available event by calling the Selector &ldquo;Select()&rdquo; call. 
+The ReadHandler learns of New_Connection by reading  from a queue
+that contains &ldquo;new connection&rdquo; event notifications.  The read
+handler code has a hard time servicing the queue as most time is
+spent blocking in the Selector &ldquo;select()&rdquo; call.  The ReadHandler
+does a special dance, to accommodate.  After each read operation, the
+queue is serviced if and only if there are New_Connection events in
+it.  The other part of the dance is to issue a Selector &ldquo;wakeup()&rdquo;
+call right after adding a New_Connection to the queue, ensuring that
+the event is processed in a timely fashion.</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">The write
+handling threads need to deal with the following events {
+Ready_For_Write, Write_Buffer_Request }.  The WriteHandler thread
+learns of Write_Buffer_Request by reading from a queue that contains
+requests to send data.  The WriteHandler thread learns that the
+network device is ready to be written to when Ready_For_Write is
+obtained by calling the Selector &ldquo;Select()&rdquo; call.  Unlike the
+ReadHandler, the WriteHandler assumes that the Selector &ldquo;Select()&rdquo;
+call will return soon enough for any new Write_Buffer_Request events
+to be read from the queue. 
+</p>
+
+
+<h3 class="western" style="page-break-before: always; font-family: Helvetica,Arial,sans-serif;" lang="en-US"></h3>
+<hr style="width: 100%; height: 2px; font-family: Helvetica,Arial,sans-serif;">
+<h3 class="western" style="page-break-before: always; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+JGroups
+performance results using TCP_NIO</h3>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">The
+JGroups PerfTests
+(<font color="#000080"><u><a href="http://wiki.jboss.org/wiki/Wiki.jsp?page=PerfTests">http://wiki.jboss.org/wiki/Wiki.jsp?page=PerfTests)</a></u></font>
+measures the time to send N messages to all members of a group.  It
+computes messages/sec and throughput for each member in the group. 
+Each machine was configured to be a sender and receive every message
+sent.  Each machine sends 1,000,000 messages. 
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+
+</p>
+
+
+<table style="font-family: Helvetica,Arial,sans-serif;" border="1" bordercolor="#000000" cellpadding="4" cellspacing="0" width="359">
+
+
+	<col width="109">
+	<col width="232">
+	<thead>
+		<tr valign="top">
+
+
+			<td width="109">
+				
+    
+    <p class="ww-table-heading1111111111-western" lang="en-US"><font size="2">Test
+				Run #</font></p>
+
+
+			</td>
+
+
+			<td width="232">
+				
+    
+    <p class="ww-table-heading1111111111-western" lang="en-US"><font size="2">Number
+				of messages read per second</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+	</thead>
+	<tbody>
+
+
+		<tr valign="bottom">
+
+
+			<td width="109">
+				
+      
+      <p class="ww-table-contents1111111111-western" align="center" lang="en-US">
+				<font size="2">1</font></p>
+
+
+			</td>
+
+
+			<td width="232">
+				
+      
+      <p class="western" align="center" lang="en-US"><font size="2">13402</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+		<tr valign="bottom">
+
+
+			<td width="109">
+				
+      
+      <p class="ww-table-contents1111111111-western" align="center" lang="en-US">
+				<font size="2">2</font></p>
+
+
+			</td>
+
+
+			<td width="232">
+				
+      
+      <p class="western" align="center" lang="en-US"><font size="2">13155</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+		<tr valign="bottom">
+
+
+			<td width="109">
+				
+      
+      <p class="ww-table-contents1111111111-western" align="center" lang="en-US">
+				<font size="2">3</font></p>
+
+
+			</td>
+
+
+			<td width="232">
+				
+      
+      <p class="western" align="center" lang="en-US"><font size="2">13344</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+		<tr valign="bottom">
+
+
+			<td width="109">
+				
+      
+      <p class="ww-table-contents1111111111-western" align="center" lang="en-US">
+				<font size="2">4</font></p>
+
+
+			</td>
+
+
+			<td width="232">
+				
+      
+      <p class="western" align="center" lang="en-US"><font size="2">13107</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+	
+  
+  </tbody>
+</table>
+
+
+
+<h3 class="western" style="page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+Test
+results using TCP</h3>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+
+</p>
+
+
+<table style="font-family: Helvetica,Arial,sans-serif;" border="1" bordercolor="#000000" cellpadding="4" cellspacing="0" width="360">
+
+
+	<col width="109">
+	<col width="233">
+	<thead>
+		<tr valign="top">
+
+
+			<td width="109">
+				
+    
+    <p class="ww-table-heading1111111111-western" lang="en-US"><font size="2">Test
+				Run #</font></p>
+
+
+			</td>
+
+
+			<td width="233">
+				
+    
+    <p class="ww-table-heading1111111111-western" lang="en-US"><font size="2">Number
+				of messages read per second</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+	</thead>
+	<tbody>
+
+
+		<tr valign="bottom">
+
+
+			<td width="109">
+				
+      
+      <p class="ww-table-contents1111111111-western" align="center" lang="en-US">
+				<font size="2">1</font></p>
+
+
+			</td>
+
+
+			<td width="233">
+				
+      
+      <p class="western" align="center" lang="en-US"><font size="2">13490</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+		<tr valign="bottom">
+
+
+			<td width="109">
+				
+      
+      <p class="ww-table-contents1111111111-western" align="center" lang="en-US">
+				<font size="2">2</font></p>
+
+
+			</td>
+
+
+			<td width="233">
+				
+      
+      <p class="western" align="center" lang="en-US"><font size="2">13462</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+		<tr valign="bottom">
+
+
+			<td width="109">
+				
+      
+      <p class="ww-table-contents1111111111-western" align="center" lang="en-US">
+				<font size="2">3</font></p>
+
+
+			</td>
+
+
+			<td width="233">
+				
+      
+      <p class="western" align="center" lang="en-US"><font size="2">13476</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+		<tr valign="bottom">
+
+
+			<td width="109">
+				
+      
+      <p class="ww-table-contents1111111111-western" align="center" lang="en-US">
+				<font size="2">4</font></p>
+
+
+			</td>
+
+
+			<td width="233">
+				
+      
+      <p class="western" align="center" lang="en-US"><font size="2">13440</font></p>
+
+
+			</td>
+
+
+		</tr>
+
+
+	
+  
+  </tbody>
+</table>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><img style="width: 642px; height: 482px;" alt="CPU Utilization" src="Perftest_CPU_utilization.jpg"> 
+</p>
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">A
+20 million message test was also run to ensure that there are no
+memory leaks.</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><img style="width: 629px; height: 358px; float: left;" alt="free memory graph" src="Perftest_freemem.gif" name="Object1"><br>
+
+
+</p>
+
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+</h3>
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+</h3>
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+</h3>
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+</h3>
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+</h3>
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+</h3>
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+</h3>
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+</h3>
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+</h3>
+
+<hr style="width: 100%; height: 2px; font-family: Helvetica,Arial,sans-serif;">
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+Configuring Reader, Writer and Processor Threads</h3>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">TCP_NIO
+has configuration settings for the number of reader, writer and
+processor threads.  Generally, setting the number of threads to a
+smaller number is better than a larger number.  As a starting point,
+try:</p>
+
+
+
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+reader_threads = 8 * number of CPUs</p>
+
+
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+writer_threads = 8 * number of CPUs</p>
+
+
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+processor_threads = 8 * number of CPUs</p>
+
+
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+processor_minThreads = 8 * number of CPUs</p>
+
+
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+processor_maxThreads = 8 * number of CPUs</p>
+
+
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+processor_keepAlivetime = -1</p>
+
+
+
+<p class="western" style="margin-left: 0.5in; margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+processor_queueSize = 100<br>
+
+
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">The reader
+threads read incoming requests and hand the request off to the
+processor threads to be handled.  The processor threads may be
+disabled (processor_maxThreads is set to zero) so that the incoming
+requests are handled in the reader threads.</p>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">If
+processor_minThreads is less than processor_maxThreads, new threads
+will be created to process requests, if and only if, the processor
+internal queue has processor_queueSize entries in it.  This occurs at
+the time that the next request needs to be processed.  
+</p>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">If the
+internal queue is full and processor_maxThreads threads are busy, the
+reader thread will block until one of the processor threads completes
+its work.</p>
+
+<br>
+<hr style="width: 100%; height: 2px;"><br style="font-family: Helvetica,Arial,sans-serif;">
+
+
+
+<h3 class="western" style="page-break-before: always; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+Testing environment</h3>
+
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2"><b>Cluster:</b>
+4 Dell Optiplex GX260 machines </font>
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2"><b>CPU:</b>
+Three Intel Pentium 4 2.26GHz and one Pentium 4 2GHz</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2"><b>Memory:</b>
+1GB</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2"><b>OS:</b>
+SUSE Linux Enterprise Server 9  (kernel: 2.6.5)</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2"><b>Switch:</b>
+100Mega bit</font></p>
+
+
+<h3 class="western" style="page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+JGroups
+configuration file</h3>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2">&lt;config&gt;</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">   
+<font size="2">&lt;TCP_NIO
+bind_addr="164.99.218.115"   recv_buf_size="20000000"
+  send_buf_size="640000"</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">loopback="false"
+  discard_incompatible_packets="true"  
+max_bundle_size="64000"</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">max_bundle_timeout="30"
+  use_incoming_packet_handler="true"     </font>
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">use_outgoing_packet_handler="true"
+  down_thread="false" up_thread="false"</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">enable_bundling="true"
+  start_port="7800"   use_send_queues="false"</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">sock_conn_timeout="300"
+skip_suspected_members="true"/&gt;</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">    <font size="2">&lt;MPING
+timeout="2000"   num_initial_members="3" 
+mcast_addr="229.6.7.8"</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">bind_addr="164.99.218.115"
+  down_thread="false" up_thread="false"/&gt;</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">   
+<font size="2">&lt;FD_SOCK
+down_thread="false" up_thread="false"/&gt;</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">   
+<font size="2">&lt;pbcast.NAKACK
+max_xmit_size="60000"  use_mcast_xmit="false"
+gc_lag="10"</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">retransmit_timeout="100,200,300,600,1200,2400,4800"
+  down_thread="false" up_thread="false"</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">discard_delivered_msgs="true"/&gt;</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">   
+<font size="2">&lt;pbcast.STABLE
+stability_delay="1000" desired_avg_gossip="50000"
+  down_thread="false" </font>
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">up_thread="false"
+  max_bytes="400000"/&gt;</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">   
+<font size="2">&lt;pbcast.GMS
+print_local_addr="true" join_timeout="3000"  
+down_thread="false" up_thread="false"</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">join_retry_timeout="2000"
+shun="true"/&gt;</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">    <font size="2">&lt;FC
+max_credits="2000000" down_thread="false"
+up_thread="false"   min_threshold="0.10" </font>
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">        
+<font size="2">max_block_time="1000"/&gt;
+       </font>
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2">&lt;/config&gt;</font></p>
+
+
+<h3 style="font-family: Helvetica,Arial,sans-serif;" class="western" lang="en-US">Test
+'config.txt' file</h3>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2">num_msgs=1000000
+   msg_size=1000     num_members=4     num_senders=4</font></p>
+
+
+<h3 class="western" style="page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US">Java
+ 
+</h3>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2">Java(TM)
+2 Runtime Environment, Standard Edition (build 1.5.0_05-b05)</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2">Java
+HotSpot(TM) Client VM (build 1.5.0_05-b05, mixed mode, sharing)&rdquo;</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><b>Shell
+Script using TCP_NIO:</b></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2">#!/bin/bash</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2">#
+see description on http://wiki.jboss.org/wiki/Wiki.jsp?page=PerfTests</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"> 
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2">export
+CLASSPATH=./commons-logging.jar:./concurrent.jar:./jgroups-all.jar:$CLASSPATH</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><font size="2">export
+JAVA_OPTS="-Xmx100M -Xms100M -XX:NewRatio=1 -XX:+AggressiveHeap
+-XX:ThreadStackSize=64 -XX:CompileThreshold=100 -Dcom
+sun.management.jmxremote -Dresolve.dns=false
+-Dlog4j.configuration=file:log4j.properties"</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"> <font size="2">java
+$JAVA_OPTS org.jgroups.tests.perf.Test -sender -config
+./configsender.txt -props ./tcp-fast-nio.xml</font></p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><b>Shell
+Script using TCP:</b><br>
+
+<font size="2">#!/bin/bash<br>
+
+export
+CLASSPATH=./commons-logging.jar:./concurrent.jar:./jgroups-all.jar:$CLASSPATH<br>
+
+export
+JAVA_OPTS="-Xmx100M -Xms100M -XX:NewRatio=1 -XX:+AggressiveHeap
+-XX:ThreadStackSize=64 -XX:CompileThreshold=100
+-Dcom.sun.management.jmxremote -Dresolve.dns=false
+-Dlog4j.configuration=</font><font color="#000080"><u><a href="../../..///////////log4j.properties"><font size="2">file:log4j.properties</font></a></u></font><font size="2">"<br>
+
+java
+$JAVA_OPTS org.jgroups.tests.perf.Test -sender -config
+./configsender.txt -props ./tcp-fast.xml</font></p>
+
+
+<h3 class="western" style="page-break-before: always; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><img style="border: 0px solid ; width: 1024px; height: 567px;" alt="TCP-NIO implementation diagram" src="Perftest_html_nio.jpg" name="Graphic1" align="middle"></h3>
+<h3 class="western" style="page-break-before: always; font-family: Helvetica,Arial,sans-serif;" lang="en-US"></h3>
+<hr style="width: 100%; height: 2px;">
+<h3 class="western" style="page-break-before: always; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+</h3>
+<h3 class="western" style="page-break-before: always; font-family: Helvetica,Arial,sans-serif;" lang="en-US">Implementation
+Code Overview 
+</h3>
+
+
+<p class="western" style="margin-top: 0.17in; margin-bottom: 0.04in; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+During (org.jgroups.blocks.ConnectionTableNIO) initialization, the
+server socket is created in non-blocking mode and a background thread
+started that will accept  connections.  The reader, writer and
+processor threads are created to deal with reading, writing and
+processing requests/responses.  Optionally, the processor threads can
+be disabled and requests are processed in the reader thread.</p>
+
+
+<p class="western" style="margin-top: 0.17in; margin-bottom: 0.04in; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+Accepted socket connections are bound to a reader and writer thread
+in a round robin fashion.  This gives a nice distribution across the
+threads initially for new connections, but could become unfair over
+time as members leave/join the group.  Consideration was given to use
+different policies for distributing the load across the threads such
+as random selection and re-balancing but instead opted for simple
+r-r.</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">The
+ReadHandler &ldquo;run()&rdquo; as mentioned earlier, deals with reading
+events from an internal queue and Selector.  ReadOnce() deals with
+connection handshaking, reading message header and the message
+payload.  The message payload is passed to the request Processor
+which can be configured to run asynchronously or synchronously.  The
+received message is handled by passing it up the JGroups protocol
+stack.  
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+
+</p>
+
+
+<p class="western" style="margin-bottom: 0in; font-family: Helvetica,Arial,sans-serif;" lang="en-US">The
+WriteHandler &ldquo;run()&rdquo; deals with reading events from an internal
+queue and Selector.    Special care is taken to maintain the counter
+(m_pendingChannels) of connections that have pending work.  The
+counter is used to determine whether a blocking wait on the queue or
+Selector should occur.  Requests to write messages are queued up and
+handled by the WriteHandler.  The messages are read from the queue
+and placed on a &ldquo;per connection&rdquo; list.  The messages on the &ldquo;per
+connection&rdquo; list are written when the connection is available for
+writing.  The sender of the message is notified of the number of
+bytes sent or of the exception that occurred during the send.  
+</p>
+
+
+<h3 style="font-family: Helvetica,Arial,sans-serif;" class="western" lang="en-US"></h3>
+<hr style="width: 100%; height: 2px;">
+<h3 style="font-family: Helvetica,Arial,sans-serif;" class="western" lang="en-US"><br>
+</h3>
+<h3 style="font-family: Helvetica,Arial,sans-serif;" class="western" lang="en-US">Conclusion</h3>
+
+
+<p class="western" style="margin-top: 0.17in; margin-bottom: 0.04in; page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US">
+The performance of TCP is a
+little faster than TCP_NIO in a four node cluster.  It is great that
+TCP_NIO gives close to the same performance as TCP for a small
+cluster but NIO is expected to show better performance in a large
+environment (due to reduced number of threads required).  The current
+TCP_NIO implementation is just the start of the process, TCP_NIO will
+be enhanced as needed to achieve the high scalability desired.  
+</p>
+
+
+<h3 class="western" style="page-break-after: avoid; font-family: Helvetica,Arial,sans-serif;" lang="en-US"><br>
+
+<br>
+
+
+</h3>
+
+
+</body>
+</html>

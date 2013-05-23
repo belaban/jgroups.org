@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<jnlp spec="1.0+"
+      codebase="http://www.jgroups.org/jnlp"
+      href="replcache.jnlp">
+   <information> 
+      <title>JGroups ReplCache demo</title> 
+      <vendor>JBoss / Red Hat</vendor>
+      <homepage href="http://www.jgroups.org"/>
+      <description>A clustered ReplCache application</description>
+      <description kind="short">ReplCache demo</description>
+      <offline-allowed/> 
+   </information> 
+
+   <security><all-permissions/></security>
+
+
+   <resources>
+      <j2se version="1.5+"/>
+      <jar href="replcachedemo.jar" main="true" download="eager"/>   
+      <!--jar href="jgroups-all.jar" main="true" download="eager"/-->
+      <!--jar href="commons-logging.jar" main="false" download="lazy"/-->
+      <!--jar href="log4j.jar" main="false" download="lazy"/-->
+   </resources>
+   <application-desc main-class="org.jgroups.demos.ReplCacheDemo"/>
+</jnlp> 

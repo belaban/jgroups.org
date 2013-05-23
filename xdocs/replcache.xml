@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="Bela Ban">Bela Ban</author>
+    <title>ReplCache</title>
+  </properties>
+
+<body>
+
+<section name="ReplCache: dynamic caching in the cloud">
+<p>
+
+ReplCache is based on 
+<a href="memcached/memcached.html">PartitionedHashMap</a>,
+which distributes keys and values across nodes, but adds <em> variable
+replication</em>.<br/>
+
+This means that, for each element (key/value pair) to be added, a user can
+indicate how many times (replication count) the element should be
+stored in the cloud. <br/>
+
+For instance, a replication count of 1 means the element should be
+stored in the cloud only once, on a node determined by the consistent
+hashcode of the key.<br/>
+
+A replication count of -1 means the element should be stored
+everywhere, that is, on every node in the cloud. This means that the
+element is highly available, but the disadvantage is that we also
+waste memory.<br/>
+
+A replication count of K (where K &lt; number of cluster nodes) means
+that an element will be stored K times. Unless K cluster nodes crash
+at exactly the same time, the element will always be available.
+<br/>
+
+The article can be found at 
+<a href="replcache/replcache.html">here</a> (HTML)
+and <a href="replcache/replcache.pdf">here</a> (PDF).
+
+<br/>
+
+The code can be downloaded 
+<a href="https://sourceforge.net/project/showfiles.php?group_id=6081&amp;package_id=94868&amp;release_id=655306">here</a>.
+
+<br/>
+
+There is a 5 minute flash demo of ReplCache at <a href="demos.html">demos.html</a>.
+
+</p>
+</section>
+
+
+
+
+</body>
+</document>
