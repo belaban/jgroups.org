@@ -1,0 +1,51 @@
+
+
+----------------------- TEST -----------------------
+Date: Mon Aug 21 10:21:42 EDT 2006
+Run by: bela
+
+log_interval:	20000
+msg_size:	5000
+config:	./config_6_6_5000.txt
+transport:	org.jgroups.tests.perf.transports.JGroupsTransport
+num_senders:	6
+sender:	true
+props:	/home/bela/fc-fast-minimalthreads.xml
+num_msgs:	33333
+num_members:	6
+JGroups version: 2.4CR1
+
+
+##### msgs_received, current time (in ms), msgs/sec, throughput/sec [KB], free_mem [KB] , total_mem [KB] 
+20000 1156170110711 2785.52 13927576.6 428786.592 799539.2
+40000 1156170114847 3534.82 17674089.78 432605.072 799014.912
+60000 1156170120454 3545.47 17727353.31 379718.848 734003.2
+80000 1156170123947 3918.5 19592476.49 400675.984 734003.2
+100000 1156170126919 4275.7 21378484.69 309543.328 734003.2
+120000 1156170130766 4406.1 22030475.49 381033.536 734724.096
+140000 1156170134388 4537.06 22685290.21 215201.848 734003.2
+160000 1156170137762 4674.13 23370628.96 175978.304 750256.128
+180000 1156170142244 4649.6 23248004.55 211057.112 762970.112
+
+-- results:
+
+10.68.4.33:54736:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=79013ms, msgs/sec=2531.2, throughput=12.66MB/sec
+
+10.68.16.33:36353:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=51844ms, msgs/sec=3857.69, throughput=19.29MB/sec
+
+10.68.24.33:34165:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=51844ms, msgs/sec=3857.69, throughput=19.29MB/sec
+
+10.68.20.33:36611:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=51843ms, msgs/sec=3857.76, throughput=19.29MB/sec
+
+10.68.28.33:40100 (myself):
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=51833ms, msgs/sec=3858.51, throughput=19.29MB/sec
+
+10.68.8.33:34649:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=51845ms, msgs/sec=3857.61, throughput=19.29MB/sec
+
+combined: 3636.74 msgs/sec averaged over all receivers (throughput=18.18MB/sec)
+

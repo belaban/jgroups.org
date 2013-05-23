@@ -1,0 +1,58 @@
+
+
+----------------------- TEST -----------------------
+Date: Tue Aug 22 03:42:42 EDT 2006
+Run by: bela
+
+log_interval:	20000
+msg_size:	5000
+config:	./config_8_8_5000.txt
+transport:	org.jgroups.tests.perf.transports.JGroupsTransport
+num_senders:	8
+sender:	true
+props:	/home/bela/tcp_nio.xml
+num_msgs:	25000
+num_members:	8
+JGroups version: 2.4CR1
+
+
+##### msgs_received, current time (in ms), msgs/sec, throughput/sec [KB], free_mem [KB] , total_mem [KB] 
+20000 1156232568062 6084.58 30422878 484171.576 499712.0
+40000 1156232569936 7750.44 38752179.81 356577.232 499712.0
+60000 1156232572632 7636.5 38182512.41 377563.368 510590.976
+80000 1156232574162 8522.42 42612123.15 445984.0 509476.864
+100000 1156232576028 8886.52 44432595.75 471272.208 509476.864
+120000 1156232577511 9422.11 47110552.76 379398.088 504692.736
+140000 1156232579034 9818.36 49091801.67 427949.528 506396.672
+160000 1156232580549 10143.27 50716368.71 465799.456 506855.424
+180000 1156232582124 10375.24 51876188.83 355306.376 507117.568
+200000 1156232583871 10473.4 52366987.85 353642.464 507314.176
+
+-- results:
+
+10.68.12.33:7800:
+num_msgs_expected=200000, num_msgs_received=200000 (loss rate=0.0%), received=1000MB, time=19115ms, msgs/sec=10462.99, throughput=52.31MB/sec
+
+10.68.8.33:7800:
+num_msgs_expected=200000, num_msgs_received=200000 (loss rate=0.0%), received=1000MB, time=19121ms, msgs/sec=10459.7, throughput=52.3MB/sec
+
+10.68.16.33:7800:
+num_msgs_expected=200000, num_msgs_received=200000 (loss rate=0.0%), received=1000MB, time=19074ms, msgs/sec=10485.48, throughput=52.43MB/sec
+
+10.68.4.33:7800:
+num_msgs_expected=200000, num_msgs_received=200000 (loss rate=0.0%), received=1000MB, time=19101ms, msgs/sec=10470.66, throughput=52.35MB/sec
+
+10.68.0.33:7800:
+num_msgs_expected=200000, num_msgs_received=200000 (loss rate=0.0%), received=1000MB, time=19113ms, msgs/sec=10464.08, throughput=52.32MB/sec
+
+10.68.28.33:7800 (myself):
+num_msgs_expected=200000, num_msgs_received=200000 (loss rate=0.0%), received=1000MB, time=19096ms, msgs/sec=10473.4, throughput=52.37MB/sec
+
+10.68.20.33:7800:
+num_msgs_expected=200000, num_msgs_received=200000 (loss rate=0.0%), received=1000MB, time=19114ms, msgs/sec=10463.53, throughput=52.32MB/sec
+
+10.68.24.33:7800:
+num_msgs_expected=200000, num_msgs_received=200000 (loss rate=0.0%), received=1000MB, time=19113ms, msgs/sec=10464.08, throughput=52.32MB/sec
+
+combined: 10467.99 msgs/sec averaged over all receivers (throughput=52.34MB/sec)
+

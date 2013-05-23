@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#
+# Replace belaban with your own SourceForge ID
+#
+
+cd build
+rm -f velocity*log* *.~* core *~
+rsync -c  -u -e ssh -rv . belaban,javagroups@web.sourceforge.net:/home/groups/j/ja/javagroups/htdocs/
+cd -

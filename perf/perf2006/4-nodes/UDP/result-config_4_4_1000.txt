@@ -1,0 +1,46 @@
+
+
+----------------------- TEST -----------------------
+Date: Wed Aug 23 03:07:02 EDT 2006
+Run by: bela
+
+log_interval:	100000
+msg_size:	1000
+config:	/home/bela/config_4_4_1000.txt
+transport:	org.jgroups.tests.perf.transports.JGroupsTransport
+num_senders:	4
+sender:	true
+props:	/home/bela/fc-fast-minimalthreads.xml
+num_msgs:	250000
+num_members:	4
+JGroups version: 2.4CR1
+
+
+##### msgs_received, current time (in ms), msgs/sec, throughput/sec [KB], free_mem [KB] , total_mem [KB] 
+100000 1156316826387 30693.68 30693677.1 688947.544 799539.2
+200000 1156316828566 36784.99 36784991.72 591485.928 799539.2
+300000 1156316831032 37960.27 37960268.25 791131.464 799539.2
+400000 1156316833026 40416.29 40416287.76 713832.896 799539.2
+500000 1156316835042 41970.96 41970956.1 695679.504 816054.272
+600000 1156316837527 41672.45 41672454.51 680999.288 815857.664
+700000 1156316839727 42173.76 42173755.87 660345.08 817102.848
+800000 1156316842988 40284 40284002.22 615320.448 816513.024
+900000 1156316845605 40042.71 40042712.23 576234.24 818806.784
+1000000 1156316848332 39677.82 39677816.13 578742.552 817692.672
+
+-- results:
+
+10.68.4.33:55081:
+num_msgs_expected=1000000, num_msgs_received=1000000 (loss rate=0.0%), received=1000MB, time=25205ms, msgs/sec=39674.67, throughput=39.67MB/sec
+
+10.68.8.33:34985:
+num_msgs_expected=1000000, num_msgs_received=1000000 (loss rate=0.0%), received=1000MB, time=25205ms, msgs/sec=39674.67, throughput=39.67MB/sec
+
+10.68.0.33:41000:
+num_msgs_expected=1000000, num_msgs_received=1000000 (loss rate=0.0%), received=1000MB, time=25204ms, msgs/sec=39676.24, throughput=39.68MB/sec
+
+10.68.12.33:46667 (myself):
+num_msgs_expected=1000000, num_msgs_received=1000000 (loss rate=0.0%), received=1000MB, time=25203ms, msgs/sec=39677.82, throughput=39.68MB/sec
+
+combined: 39675.85 msgs/sec averaged over all receivers (throughput=39.68MB/sec)
+

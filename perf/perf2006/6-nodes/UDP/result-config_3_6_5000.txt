@@ -1,0 +1,51 @@
+
+
+----------------------- TEST -----------------------
+Date: Mon Aug 21 08:23:39 EDT 2006
+Run by: bela
+
+log_interval:	20000
+msg_size:	5000
+config:	./config_3_6_5000.txt
+transport:	org.jgroups.tests.perf.transports.JGroupsTransport
+num_senders:	3
+sender:	false
+props:	/home/bela/fc-fast-minimalthreads.xml
+num_msgs:	66666
+num_members:	6
+JGroups version: 2.4CR1
+
+
+##### msgs_received, current time (in ms), msgs/sec, throughput/sec [KB], free_mem [KB] , total_mem [KB] 
+20000 1156163026305 3451.25 17256255.39 326392.8 499712.0
+40000 1156163030262 4101.72 20508613.62 327617.648 438173.696
+60000 1156163034221 4376.05 21880242.14 353791.992 458752.0
+80000 1156163038407 4470.02 22350114.54 316096.296 458752.0
+100000 1156163042433 4561.42 22807097.57 251618.368 464715.776
+120000 1156163046098 4689.7 23448491.48 262534.616 464715.776
+140000 1156163050473 4672.43 23362146.65 265427.48 467730.432
+160000 1156163054022 4774.41 23872045.83 270665.656 467927.04
+180000 1156163057437 4874.48 24372410.43 210418.368 460193.792
+
+-- results:
+
+10.68.16.33:36339:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=40835ms, msgs/sec=4897.71, throughput=24.49MB/sec
+
+10.68.20.33:36596:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=40834ms, msgs/sec=4897.83, throughput=24.49MB/sec
+
+10.68.8.33:34636:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=40828ms, msgs/sec=4898.55, throughput=24.49MB/sec
+
+10.68.4.33:54722:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=40835ms, msgs/sec=4897.71, throughput=24.49MB/sec
+
+10.68.24.33:34151:
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=40842ms, msgs/sec=4896.87, throughput=24.48MB/sec
+
+10.68.28.33:40087 (myself):
+num_msgs_expected=199998, num_msgs_received=199998 (loss rate=0.0%), received=999.99MB, time=40816ms, msgs/sec=4899.99, throughput=24.5MB/sec
+
+combined: 4898.11 msgs/sec averaged over all receivers (throughput=24.49MB/sec)
+
