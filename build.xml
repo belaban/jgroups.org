@@ -11,7 +11,6 @@
     <property name="papers.dir"           value="papers"/>
     <property name="hsqldbr.dir"          value="hsqldbr"/>
     <property name="jgroups.dir"          value="../JGroups"/>
-    <property name="jgroups.2.dir"        value="../JGroups-2.12-branch"/>
     <property name="jgroups.articles.dir" value="../JGroupsArticles"/>
     <property name="jnlp.dir"             value="jnlp"/>
 
@@ -26,10 +25,6 @@
 
     <target name="check-jgroups" description="Checks whether the ${jgroups.dir} dir exists">
         <available file="${jgroups.dir}" type="dir" property="jgroups.exists"/>
-    </target>
-
-    <target name="check-jgroups-2.x" description="Checks whether the ${jgroups.2.dir} dir exists">
-        <available file="${jgroups.2.dir}" type="dir" property="jgroups.2.exists"/>
     </target>
 
     <target name="check-jgroups-articles" description="Checks whether the ${jgroups.articles.dir} dir exists">
@@ -55,18 +50,18 @@
     </target>
 
     <target name="docs" depends="prepare-error" if="AnakiaTask.present"
-     description="Render HTML Pages via Anakia">
+            description="Render HTML Pages via Anakia">
         <taskdef name="anakia" 
-            classname="org.apache.velocity.anakia.AnakiaTask">
+                 classname="org.apache.velocity.anakia.AnakiaTask">
             <classpath refid="classpath"/>
         </taskdef>
         <anakia basedir="${docs.src}" destdir="${build.dir}/"
-             extension=".html" style="./site.vsl"
-             projectFile="stylesheets/project.xml"
-             excludes="**/stylesheets/** empty.xml"
-             includes="**/*.xml"
-             lastModifiedCheck="true"
-             templatePath="./xdocs/stylesheets">
+                extension=".html" style="./site.vsl"
+                projectFile="stylesheets/project.xml"
+                excludes="**/stylesheets/** empty.xml"
+                includes="**/*.xml"
+                lastModifiedCheck="true"
+                templatePath="./xdocs/stylesheets">
         </anakia>
 
         <echo message="Copying directories to ${build.dir}:"/>
@@ -86,16 +81,21 @@
 
         <antcall target="copy-articles" description="Copies articles from JGroupsArticles"/>
 
-        <antcall target="copy-javadoc-2.x" description="Generates and copies the javadoc to the build dir"/>
         <antcall target="copy-javadoc" description="Generates and copies the javadoc to the build dir"/>
 
-        <antcall target="copy-manual-2.x" description="Copies the 2.x manual to build/manual"/>
-        <antcall target="copy-manual" description="Copies the 3.x manual to build/manual-3.x"/>
+        <antcall target="copy-manual" description="Copies the manual to build/manual"/>
 
-        <antcall target="copy-tutorial-2.x" description="Copies the 2.x tutorial to build/tutorial"/>
-        <antcall target="copy-tutorial" description="Copies the 3.x tutorial to build/tutorial-3.x"/>
+        <antcall target="copy-tutorial" description="Copies the tutorial to build/tutorial"/>
 
         <copyDirectory from="${jnlp.dir}" to="${build.dir}/jnlp"/>
+
+        <delete>
+            <fileset dir="." defaultexcludes="no">
+                <include name="**/*~"/>
+                <include name="velocity*.log*"/>
+            </fileset>
+        </delete>
+
     </target>
 
 
@@ -103,15 +103,8 @@
     <target name="copy-javadoc" if="jgroups.exists" depends="check-jgroups"
             description="Generates JGroups/dist/javadoc and copies it to ./build if the JGroups directory is found ">
         <ant dir="${jgroups.dir}" antfile="${jgroups.dir}/build.xml" target="javadoc" inheritall="false"/>
-        <copyDirectory from="${jgroups.dir}/dist/javadoc" to="${build.dir}/javadoc-3.x"/>
+        <copyDirectory from="${jgroups.dir}/dist/javadoc" to="${build.dir}/javadoc"/>
     </target>
-
-    <target name="copy-javadoc-2.x" if="jgroups.2.exists" depends="check-jgroups-2.x"
-            description="Generates JGroups-2.12-branch/dist/javadoc and copies it to ./build if the JGroups directory is found ">
-        <ant dir="${jgroups.2.dir}" antfile="${jgroups.2.dir}/build.xml" target="javadoc" inheritall="false"/>
-        <copyDirectory from="${jgroups.2.dir}/dist/javadoc" to="${build.dir}/javadoc"/>
-    </target>
-
 
 
     <target name="copy-schema" depends="check-jgroups-schema"
@@ -153,27 +146,15 @@
     </target>
 
     <target name="copy-manual" if="jgroups.exists" depends="check-jgroups"
-            description="Copies the PDF and HTML files from JGroups/doc/manual/build/en to ./build/manual-3.x">
+            description="Copies the PDF and HTML files from JGroups/doc/manual/build/en to ./build/manual">
         <ant antfile="${jgroups.dir}/build.xml" target="manual" inheritall="false"/>
-        <copyDirectory from="${jgroups.dir}/doc/manual/target/docbook/publish/en" to="${build.dir}/manual-3.x/"/>
+        <copyDirectory from="${jgroups.dir}/doc/manual/target/docbook/publish/en" to="${build.dir}/manual/"/>
     </target>
 
-    <target name="copy-manual-2.x" if="jgroups.2.exists" depends="check-jgroups-2.x"
-            description="Copies the PDF and HTML files from JGroups-2.12-branch/doc/manual/build/en to ./build/manual">
-        <ant antfile="${jgroups.2.dir}/build.xml" target="manual" inheritall="false"/>
-        <copyDirectory from="${jgroups.2.dir}/doc/manual/build/en" to="${build.dir}/manual/"/>
-    </target>
-    
     <target name="copy-tutorial" if="jgroups.exists" depends="check-jgroups"
-            description="Copies the PDF and HTML files from JGroups/doc/tutorial/build/en to ./build/tutorial-3.x">
+            description="Copies the PDF and HTML files from JGroups/doc/tutorial/build/en to ./build/tutorial">
         <ant antfile="${jgroups.dir}/build.xml" target="tutorial" inheritall="false"/>
-        <copyDirectory from="${jgroups.dir}/doc/tutorial/target/docbook/publish/en" to="${build.dir}/tutorial-3.x/"/>
-    </target>
-
-    <target name="copy-tutorial-2.x" if="jgroups.2.exists" depends="check-jgroups-2.x"
-            description="Copies the PDF and HTML files from JGroups-2.12-branch/doc/tutorial/build/en to ./build/tutorial">
-        <ant antfile="${jgroups.2.dir}/build.xml" target="tutorial" inheritall="false"/>
-        <copyDirectory from="${jgroups.2.dir}/doc/tutorial/build/en" to="${build.dir}/tutorial/"/>
+        <copyDirectory from="${jgroups.dir}/doc/tutorial/target/docbook/publish/en" to="${build.dir}/tutorial/"/>
     </target>
 
     <target name="clean" description="Removes generated files and directories">

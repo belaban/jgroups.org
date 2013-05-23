@@ -1,60 +1,51 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="JGroups website"
-        href="http://www.jgroups.org/">
+<project name="JGroups website" href="http://www.jgroups.org/">
 
     <title>JGroups</title>
 
     <body>
-    <menu name="JGroups">
-        <item name="Home"                  href="/index.html"/>
-        <item name="Overview"              href="/overview.html"/>
-        <item name="Sample code"           href="/api.html"/>
-        <item name="Building Blocks"       href="/blocks.html"/>
-        <item name="Team Members"          href="/members.html"/>
-        <item name="Acknowledgments"       href="/acks.html"/>
-	<item name="License"               href="/license.html"/>
-        <!--item name="Open Projects"         href="/open_projects.html"/-->
-        <item name="Success Stories"       href="/success.html"/>
-        <item name="Consulting"            href="/consulting.html"/>
-        <item name="IRC"                   href="/irc.html"/>
-    </menu>
+        <menu name="JGroups">
+            <item name="Home"                  href="/index.html"/>
+            <item name="Overview"              href="/overview.html"/>
+            <item name="Sample code"           href="/api.html"/>
+            <item name="Building Blocks"       href="/blocks.html"/>
+            <item name="Team Members"          href="/members.html"/>
+            <item name="Acknowledgments"       href="/acks.html"/>
+            <item name="License"               href="/license.html"/>
+            <item name="Success Stories"       href="/success.html"/>
+            <item name="Consulting"            href="/consulting.html"/>
+            <item name="IRC"                   href="/irc.html"/>
+        </menu>
     
-    <menu name="Experimental">
-        <item name="Memcached on JGroups"  href="/memcached.html"/>
-        <item name="A clustered task distribution system" href="/taskdistribution.html"/>
-        <item name="ReplCache: variable caching in the cloud"  href="/replcache.html"/>
-    </menu>
 
-    <menu name="Documentation">
-        <item name="Manual"                  href="/ug.html"/>
-        <item name="Tutorial 2.x"            href="/tutorial/html/index.html"/>
-        <item name="Tutorial 3.x"            href="/tutorial-3.x/html/index.html"/>
-        <item name="Javadoc 2.x"             href="/javadoc/index.html"/>
-        <item name="Javadoc 3.x"             href="/javadoc-3.x/index.html"/>
-        <item name="Blogs"                   href="/blogs.html"/>
-        <item name="Demos (flash and Webstart)"                   href="/demos.html"/>
-        <item name="Papers and Articles"     href="/papers.html"/>
-        <item name="Performance"             href="/performance.html"/>
-    </menu>
+        <menu name="Documentation">
+            <item name="Manual"                  href="/ug.html"/>
+            <item name="Tutorial"                href="/tutorial/html/index.html"/>
+            <item name="Javadoc"                 href="/javadoc/index.html"/>
+            <item name="Blogs"                   href="/blogs.html"/>
+            <item name="Demos"                   href="/demos.html"/>
+            <item name="Papers and Articles"     href="/papers.html"/>
+            <item name="Performance"             href="/performance.html"/>
+            <item name="HSQLDB/R"                href="/hsqldbr.html"/>
+        </menu>
 
-    <menu name="Download">
-        <item name="ZIP, JARs and tarballs"  href="http://sourceforge.net/project/showfiles.php?group_id=6081"/>
-        <item name="Source code"             href="http://www.github.com/belaban/JGroups"/>
-        <item name="Project swag"            href="http://www.cafepress.com/jbossorg/7489623"/>
-    </menu>
+        <menu name="Download">
+            <item name="ZIP, JARs and tarballs"  href="http://sourceforge.net/project/showfiles.php?group_id=6081"/>
+            <item name="Source code"             href="http://www.github.com/belaban/JGroups"/>
+            <item name="Project swag"            href="http://www.cafepress.com/jbossorg/7489623"/>
+        </menu>
 
-    <menu name="Getting Involved">
-        <item name="Contributing"            href="/contributing.html"/>
-        <!--item name="Contributing Money"      href="/donating.html"/-->
-        <item name="Mailing Lists"           href="http://sourceforge.net/mail/?group_id=6081"/>
-        <item name="Bug Reports"             href="/bug_reports.html"/>
-    </menu>
+        <menu name="Experimental">
+            <item name="Memcached on JGroups"  href="/memcached.html"/>
+            <item name="A clustered task distribution system" href="/taskdistribution.html"/>
+            <item name="ReplCache: variable caching in the cloud"  href="/replcache.html"/>
+        </menu>
 
-    <menu name="Links">
-        <item name="JGroups-ME"              href="/jgroups-me.html"/>
-        <item name="JGroups CDC"             href="/jgroups-cdc.html"/>
-        <item name="HSQLDB/R"                href="/hsqldbr.html"/>
-    </menu>
+        <menu name="Getting Involved">
+            <item name="Contributing"            href="/contributing.html"/>
+            <item name="Mailing Lists"           href="http://sourceforge.net/mail/?group_id=6081"/>
+            <item name="Bug Reports"             href="/bug_reports.html"/>
+        </menu>
 
     </body>
 </project>

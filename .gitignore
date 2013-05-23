@@ -2,6 +2,7 @@
 *.iws
 *.ipr
 *.iml
+*.log
 .project
 .classpath
 .settings/
@@ -10,6 +11,7 @@
 .idea
 .DS_Store
 classes/
+build/
 build.properties
 dist/
 atlassian*
