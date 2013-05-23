@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Consulting for JGroups</title>
+  </properties>
+
+<body>
+
+
+
+<section name="Commercial Support for JGroups">
+<p>
+<img style="float:right;" src="images/jboss_logo.gif" width="250" height="85"
+alt="" border="0" />
+<p>Commercial support for JGroups is available through <a
+target="_blank" href="http://www.jboss.com/services/index">JBoss Inc</a>.
+The following services are currently available:</p>
+<ul>
+<li>Development support contracts</li>
+<li>Production support contracts</li>
+<li>Onsite consulting</li>
+<li>Onsite training</li>
+</ul>
+<p>All support, consulting and training is provided by members of the
+JGroups development team. 
+We support JGroups in any Java environment (under any or no J2EE
+application server).</p>
+<p>More information is available 
+<a target="_blank"
+href="http://jboss.com/services/index">here</a>.
+You may also contact Bela Ban directly, 
+email <a href="mailto:bela@jboss.org?subject=[JGroups Consulting]">bela@jboss.org</a>.</p>
+</p>
+</section>
+
+
+</body>
+</document>
+

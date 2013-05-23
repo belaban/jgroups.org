@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Consulting for JGroups</title>
+  </properties>
+
+<body>
+
+
+
+<section name="Consulting">
+<p>
+Advise regarding how to use JGroups in a customer
+environment. In this scenario, we will typically sit together with a
+customer, go through the design of a system and see whether JGroups
+is used correctly, and/or whether we recommend using JGroups at
+all. Since we don't need to sell a product, you will get honest and
+unbiased opinions and evaluations of a system. We're not afraid to
+discourage you from using JGroups if its intended use is not one
+for which JGroups was designed, or for which it cannot be extended
+without a major rewrite.
+<br/>
+If we are retained for participation of the implementation of a
+system, this typically leads to Custom Development (see below).
+</p>
+</section>
+
+
+<section name="Custom Development">
+<p>
+Here, JGroups almost fits the bill, but needs to be
+extended/modified a bit to suit a customer's requirements. That's
+where we come in. We offer customer-specific development, e.g. a
+specialized protocol, building block or application. We'll also look
+at performance tuning, e.g. adaptation of protocol stack to specific
+requirements and network environment, and minimizing network
+resources, memory usage and CPU cycles.
+</p>
+</section>
+
+
+
+<section name="Support">
+<p>
+Via email, phone or on-site. These are typically issues that pop up
+when a customer is already using JGroups, and need to be fixed. A
+number of bugs can be solved via email exchange, if not support is
+offered at the customer's site at the regular hourly, daily or weekly
+rate.
+</p>
+</section>
+
+
+<section name="Training">
+<p>
+We're currently working on a training program, to be held at the
+customer's site. It will contain training modules from which a
+customer can choose to suit their specific training needs. We also
+provide specific, customer-tailored, training.
+<br/>
+Modules will include user and developer training. Introduction to JGroups,
+its philosophy, architecture, implementation. Advanced topics include introduction
+to protocol development, building blocks. Custom training for specific
+areas of JGroups.
+</p>
+</section>
+
+
+
+<section name="Rates">
+<p>
+The rates are shown below. Travel expenses are paid by the customer.
+<br/>
+<br/>
+
+<table border="1" width="75%">
+
+<tr align="center" valign="center" nosave="true">
+<td><b>Time Unit</b></td>
+<td><b>Rate (in USD)</b></td>
+<td><b>Comments</b></td>
+</tr>
+
+<tr align="center" valign="center" nosave="true">
+<td>Hour</td>
+<td>175</td>
+<td></td>
+</tr>
+
+<tr align="center" valign="center" nosave="true">
+<td>Bulk</td>
+<td>150</td>
+<td>16hrs or more</td>
+</tr>
+
+<tr align="center" valign="center" nosave="true">
+<td>Week</td>
+<td>5500</td>
+<td>(at customer's site)</td>
+</tr>
+
+<tr align="center" valign="center" nosave="true">
+<td>Month</td>
+<td>-</td>
+<td>To be negotiated</td>
+</tr>
+
+<tr align="center" valign="center" nosave="true">
+<td>Training</td>
+<td>-</td>
+<td>TBD (at customer's site)</td>
+</tr>
+
+</table>
+
+<br/>Contact <a href="mailto:belaban@yahoo.com?subject=[JGroups
+Consulting]">Bela Ban</a> for more information (e.g. rates for
+countries other than the US).
+</p>
+</section>
+
+<section name="What do I get for this ?">
+<p>
+You get consulting/support from the guys who <em>wrote</em>
+JGroups, not from some recent college graduate (as it is often the case
+with commercial products). We will do the job in 1/5th of the time,
+saving you time and money and helping you to get your product out the
+door faster.
+</p>
+</section>
+
+</body>
+</document>
+

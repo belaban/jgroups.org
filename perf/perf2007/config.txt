@@ -1,0 +1,13 @@
+transport=org.jgroups.tests.perf.transports.JGroupsTransport
+
+num_msgs=1000000
+msg_size=1000
+num_members=4
+num_senders=4
+log_interval=50000
+processing_delay=0
+
+dump_transport_stats=false
+
+jmx=false
+

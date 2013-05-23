@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Contributing to the JGroups Project</title>
+  </properties>
+
+<body>
+
+<section name="Contributing to JGroups">
+<p>
+There are various ways to contribute:
+<ul>
+<li>If you find a bug, please either fix it (best case !) and send a
+patch, or at least create a bug report so we know about the bug.
+If you find that you fix a number of bugs, we may promote you to CVS
+committer (if you want to), so that you can fix bugs directly.
+</li>
+<li>Write some documentation. Example: how to set up JGroups using
+JBuilder, or how to configure JGroups on a NIC-less notebook</li>
+<li>Create unit tests. These are very essential: we run the testcase
+suite before each new release to make sure previously fixed bugs don't
+show up again. Having a lot of unit tests helps us save time.</li>
+<li>Suggest new features</li>
+</ul>
+
+</p>
+</section>
+
+
+
+</body>
+</document>
+
