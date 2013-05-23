@@ -1,0 +1,90 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.79 [en] (X11; U; SunOS 5.8 sun4u) [Netscape]">
+   <title>JavaGroups Flow Control Protocol</title>
+</head>
+<body>
+
+<center><b><font size=+1>JavaGroups FLOW CONTROL Protocol</font></b></center>
+
+<hr><b>Introduction</b>
+<p>Sending messages into network without any flow control causes congestion
+and degrades the network throughput. IP layer does not provide any feedback&nbsp;
+on the network status. Therefore, in IP networks the problem of flow control
+is solved by end-end inference, where sender sends <i>window size</i> number
+of messages and waits for an indication from the receivers that the messages
+have been delivered, before sending further set; After each wait period
+<i>window
+size</i> is&nbsp; re-calculated. This solution also takes care of problems
+where network bandwidth is not a constraint, but receiver lacks processing
+power to keep up with the sender.
+<p>In contrast to TCP flow control mechanism, where send rate is dramatically
+reduced but sender is never blocked, JavaGroups flow control blocks the
+sender while waiting for the flow control response from all receivers.
+If the response from the receiver are lost because of any reason, sender
+will be in hung in blocked state for ever. Therefore, reliable transport
+protocol must be present below FLOW_CONTROL for it to function properly.
+<br>&nbsp;
+<p><b>Configurable Properties</b>
+<p>The following properties can be optionally supplied by the user.
+<ul>
+<li>
+window size cap - <tt>int</tt> Limits the window size to a reasonable value.</li>
+
+<li>
+window size - <tt>int</tt> these many number of messages are sent before
+a block could happen</li>
+
+<li>
+forward margin -<tt>int</tt> a request for flow control information is
+sent when remaining window size hits this margin</li>
+
+<li>
+RTT weight -<tt>double</tt> Max RTT in the group is calculated during each
+Flow control request. lower number assigns higher weight to current RTT
+in estimating RTT.</li>
+
+<li>
+window size reduction factor -<tt>double</tt> When current RTT is greater
+than estimated RTT current window size is reduced by this multiple.</li>
+
+<li>
+window size expansion factor -<tt>double</tt> When current RTT is less
+than estimated RTT window is incremented by this multiple.</li>
+</ul>
+Example properties string:
+<p>"FLOW_CONTROL(window_size_cap=15000;window_size=1000;fwd_mrgn=200;rttweight=0.125;reduction=0.75;expansion=1.25):"
+<br>&nbsp;
+<p>Example protocol stack configuration file: <a href="flow_control.html">flow_control.html</a>
+<p><b>Throughput graph</b>
+<p>In this example a remote method is repetitively called for 280,000 times
+on the receiver using RPCDispatcher class. X-axis shows the time line and
+Y-axis shows the window size variations computed by flow control protocol.
+<center>
+<p><img SRC="timeVsWindowSize.jpg" ALT="Time vs. Throughput(windowsize in number of messages)" height=506 width=774>
+<p>Time vs. Throughput(window size in number of messages)</center>
+
+<p><b>Test cases</b>
+<br><br>HammerListener.java and HammerSender.java are originally contributed
+by Bob Stevenson. This test cases are modified to use FLOW_CONTROL protocol,
+can be found in tests/other/org/javagroups/tests/ under JavaGroups home
+directory. Note that if window cap is not specified, window size can rapidly
+grow beyond acceptable levels to the receivers and can still cause Out
+of memory exception. 
+
+<br><br>Using this test case 100,000 messages were sent in
+approximately 5 minutes, 10,000 each in 10 iterations with 20 sec. wait time
+between each iteration. Wait time did not show significant effect on sender's average transmission rate. Even without the wait time between each iteration, flow control paused the sender and reduced the average transmission rate. The same test run without flow control protocol and wait time between each iteration fails to prevent the receiver from running out of memory.
+<p><b>Conclusion</b>
+<p>FLOW_CONTROL adds a layer of stability to the group by throttling the
+sender's rate of transmission. It provides a facility to optionally supply
+parameters suitable to individual needs.
+<p>
+<hr>
+<br>Author : Ananda Bollu
+<br>&nbsp;
+</body>
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>HSQLDB/R</title>
+  </properties>
+
+<body>
+
+
+
+<section name="Overview">
+<p>
+HSQLDB/R is an experimental alpha version of database replication for
+the <a href="http://hsqldb.sf.net">HSQLDB open source Java
+database</a>. It uses a modified copy of HSQLDB 1.7.1-alpha and
+provides the following:
+<ul>
+<li>Replication between any number of databases. No master-slave
+concept, pure peer-to-peer</li>
+<li>Changes to one database will be replicated to all others</li>
+<li>New nodes acquire full database from existing nodes or - if no
+node exists yet - initializes itself from file</li>
+</ul>
+This implementation will be integrated into one of the next versions
+of HSQLDB. The current implementation can be used to replicate changes
+to one database to all other replicas. This is mainly used to failover
+to a hot-standby dabatase server in case the primary database server
+crashes.
+<br/>It is possible <em>but not
+recommended</em> to modify both replicas at the same time (see
+documentation below for details). We will provide this capability in
+the (near) future. Other items on the todo list are:
+<ul>
+<li>Transfer of large state: instead of transferring the entire
+contents of the database (including e.g. all table definitions, users,
+and table contents), we will dump the existing contents into a file,
+load the new replica from file (offline) and then only request the
+update log from the existing member</li>
+<li>Binary format for replication. Currently we ship the SQL
+statements as strings, in the future we will use an efficient internal
+format. This also avoids having to parse the SQL statements again
+before applying them to the database</li>
+<li>Distributed locking: this will allow 2 applications to modify
+<em>any</em> of the replicas (even the same data), and JGroups will
+prevent conflicts.</li>
+</ul>
+</p>
+</section>
+
+<section name="Documentation">
+<p>
+The documentation is available in <a href="hsqldbr/design.doc">MS Word</a> 
+and <a href="hsqldbr/design.pdf">PDF</a> format and as 
+<a href="hsqldbr/design.htm">HTML</a>.
+</p>
+</section>
+
+
+<section name="Download">
+<p>
+The hsqldbr.zip file can be downloaded from the 
+<a href="http://sourceforge.net/project/showfiles.php?group_id=6081">
+regular SourceForge download page for JGroups</a>. It contains all
+the necessary JARs and configuration files to run HSQLDB/R, including
+a minimal JGroups and a modified HSQLDB (based on HSQLDB-1.7.1). We
+will shortly integrate our changes into the HSQLDB code base, so the
+modified version of HSQLDB will not be needed any longer.
+</p> 
+</section>
+
+</body>
+</document>
+

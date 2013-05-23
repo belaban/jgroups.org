@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>The JGroups Project</title>
+  </properties>
+
+<body>
+
+<section name="">
+
+<img src="/images/jgroups_logo_450px.png" alt="JGroups logo"/>
+
+<p>
+
+JGroups is a toolkit for reliable multicast communication.<br/> (Note
+that this doesn't necessarily mean IP Multicast, JGroups can also use
+transports such as TCP).<br/>
+It can be used to create groups of processes whose members can send messages
+to each other. The main features include
+<ul>
+<li>Group creation and deletion. Group members can be spread across
+LANs or WANs</li>
+<li>Joining and leaving of groups</li>
+<li>Membership detection and notification about joined/left/crashed members</li>
+<li>Detection and removal of crashed members</li>
+<li>Sending and receiving of member-to-group messages (point-to-multipoint)</li>
+<li>Sending and receiving of member-to-member messages (point-to-point)</li>
+</ul>
+
+</p>
+</section>
+
+
+<section name="Flexible Protocol Stack">
+<p>
+The most powerful feature of JGroups is its flexible protocol
+stack, which allows developers to adapt it to exactly match their application
+requirements and network characteristics.<br/>
+The benefit of this is that you only pay for what you use. By mixing
+and matching protocols, various differing application requirements can
+be satisfied.<br/>
+JGroups comes with a number of protocols (but anyone can write
+their own), for example
+
+<ul>
+<li>Transport protocols: UDP (IP Multicast), TCP, JMS</li>
+<li>Fragmentation of large messages</li>
+<li>Reliable unicast and multicast message transmission. Lost messages
+are retransmitted</li>
+<li>Failure detection: crashed members are excluded from the membership</li>
+<li>Ordering protocols: Atomic (all-or-none message delivery), Fifo,
+Causal, Total Order (sequencer or token based)</li>
+<li>Membership</li>
+<li>Encryption</li>
+
+</ul>
+
+</p>
+</section>
+
+
+<section name="What Does JGroups Buy Me ?">
+<p>
+
+JGroups allows developers to create reliable multipoint (multicast)
+applications where <i>reliability</i> is a deployment issue, and does
+not have to be implemented by the application developer. This saves
+application developers significant amounts of time, and allows for the
+application to be deployed in different environments, without having
+to change code.
+
+</p>
+</section>
+
+
+<section name="About this Website">
+<p>
+
+This website was generated from XML using
+<a href="http://jakarta.apache.org/velocity/index.html">Velocity</a> and
+the excellent <a href="http://jakarta.apache.org/site/jakarta-site2.html">Jakarta-site2</a> projects.
+
+</p>
+</section>
+
+
+</body>
+</document>
+
