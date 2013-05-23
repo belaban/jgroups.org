@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="Bela Ban">Bela Ban</author>
+    <title>A clustered task distribution system</title>
+  </properties>
+
+<body>
+
+<section name="A simple clustered task distribution system">
+<p>
+This is an article on placing a task into a grid (cluster) where it is
+picked up and processed by a worker, based on a deterministic
+algorithm.<br/>
+
+No task is lost; when a node crashes, the remaining nodes again
+deterministically pick a worker which processes the task again.<br/>
+
+There is no single point of failure, and nodes can be
+added (e.g. to accommodate more load) and removed without interruption of the system.
+
+The article can be found at 
+<a href="taskdistribution/TaskDistribution.pdf">here</a> (PDF)
+and <a href="taskdistribution/TaskDistribution.html">here</a> (HTML).
+</p>
+</section>
+
+
+
+
+</body>
+</document>

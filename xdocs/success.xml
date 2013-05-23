@@ -1,0 +1,392 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Success Stories - Projects Using JGroups</title>
+  </properties>
+
+<body>
+
+
+
+<section name="MChannel: Topology-Aware Group Communication for MANETs">
+<p>
+
+In the context of the <a href="http://www.ist-popeye.eu/">IST POPEYE</a> project, 
+we have modified JGroups to support MANET environments.<br/>
+
+You can find more information on our website: 
+<a href="http://ast-deim.urv.cat/mchannel">http://ast-deim.urv.cat/mchannel</a>.<br/>
+
+And in a recent publication:
+Pedro Garcia Lopez, Marc Espelt, Raul Gracia, Marcel Arrufat, Gerard Paris 
+and Roc Messeger. "Topology-Aware Group Communication Middleware for
+MANETs". 
+ICST COMSWARE 2009. Dublin, Ireland.  
+<a href="http://ast-deim.urv.cat/mchannel_documentation/comsware_2009.pdf">
+http://ast-deim.urv.cat/mchannel_documentation/comsware_2009.pdf</a><br/>
+
+Thanks to the excellent JGroups toolkit (and elegant architecture)  
+we could create our MANET middleware in a straight-forward fashion.<br/><br/>
+
+<b>Description:</b><br/>
+
+M-Channel is a Topology-Aware Group Communication Middleware for
+MANETs based on the JGroups Tookit. <br/>
+We have modified the JGroups protocol stack to incorporate two protocols: 
+jOLSR and OMOLSR. jOLSR is a Java implementation of the MANET OLSR 
+unicast protocol using UDP. On top of it, we have developed an overlay 
+Multicast protocol (OMOLSR) that directly benefits from the jOLSR 
+protocol to improve communication efficiency.<br/>
+
+In our middleware, group membership is obtained from the overlay 
+multicast protocol (OMOLSR), failure detection is received from 
+the jOLSR protocol, and our modified flow control protocol benefits 
+from jOLSR topology information.<br/>
+<b><a href="mailto:pedrotgn@gmail.com">Pedro Garcia-Lopez, Universitat Rovira i Virgili</a></b>
+</p>
+</section>
+
+
+
+<section name="Sunnyvale">
+<p>
+
+<a href="http://www.sunnyvale.it">Sunnyvale</a> is mainly focused on enterprise application integration
+and software development. We benefitted from JGroups
+capabilities in our latest project named <a href="http://www.sunnyvale.it/doc/ala/ALA_clustering_en.pdf">ALA (Adapter-Logic
+Application)</a>.<br/>
+As you might have understood our product is
+supposed to be some kind of adapter, able to connect to
+different platforms allowing them to talk together and
+exchange data in XML format. We decided to design ALA to
+have front-end components (named controllers) and backend
+components (connectors) so we can combine them and create
+services that can be consumed in a pure SOA style. <br/>
+For a big
+Italian gas and energy company we deployed a controller module
+that connect to a SAP R/3 gateway and waits for outgoing
+(from SAP point of view) RFC calls or IDOCs to be exchanged
+with non-SAP world (Tibco Businessworks, Axis web services
+etc). Embedding JGroups into ALA Controller for SAP R/3
+allowed us to start many ALA instances in a single cluster
+group with only one node active at a time. JGroups APIs are
+responsible for cluster changes replication to all
+components sharing the same channel so we ensure high
+avaibility of our software.<br/>
+<b><a href="denis.maggiorotto@sunnyvale.it">Denis Maggiorotto</a></b>
+
+</p>
+</section>
+
+
+
+<section name="HA-JDBC">
+<p>
+<a href="http://ha-jdbc.sourceforge.net">HA-JDBC</a> is a JDBC driver
+proxy that adds light-weight, transparent, fault tolerant clustering
+capability to any JDBC driver or datasource. <br/>
+Using transaction-aware,
+statement-based replication, an application can survive a database node
+failure without interrupting current queries or transactions.<br/>
+Additionally, HA-JDBC can help scale query-heavy applications by
+balancing database reads across individual database nodes.  <br/>
+HA-JDBC uses
+JGroups for database node state management and for coordinating
+identifier generation mechanisms (e.g. sequences, identity columns).<br/>
+<b><a href="mailto:pferraro@redhat.com">Paul Ferraro</a></b>
+</p>
+</section>
+
+
+
+<section name="JBoss - Clustering of Enterprise Java Beans">
+<p>
+We use JGroups as the underlying framework for implementing the
+clustering features of the <a href="http://www.jboss.org">JBoss J2EE
+Application server</a>. JGroups gave us the opportunity to
+concentrate our efforts on the clustering features of JBoss instead of
+the very complex aspects of reliable group communication
+protocols. Through a very flexible and esthetic API we were able to
+built our clustering features without making strong assumption about
+the underlying protocols and network scheme (LAN, WAN, ...) that the
+end-users would face.  As JGroups is an LGPL Open Source Project
+(which JBoss, as an open source project, requires), we were able to
+quickly find some minor bugs and implement new features that fitted
+our needs.  Furthermore, thanks to Bela Ban recognized strong
+competencies in this arena and its growing user community, JGroups
+is a very dynamic project.
+<br/>
+<b>Sacha Labourey</b> (co-developer of JBoss Clustering)
+</p>
+</section>
+
+
+<section name="FactoryPMI - Java Web Start based SCADA package">
+<p>
+<a href="http://www.inductiveautomation.com/products/factorypmi/">FactoryPMI</a>
+is a popular commercial SCADA application from 
+<a href="http://www.inductiveautomation.com/">Inductive Automation</a>. 
+It is a distributed HMI package designed for industrial
+control applications, from process monitoring to full control. JGroups
+is used between "FactoryPMI Gateway" web servers to form a cluster
+that provides client load balancing and connection redundancy. 
+<br/>JGroups has allowed FactoryPMI clustering to be easy to configure and
+incredibly reliable.
+<br/>
+<b>Nathan Boeger</b>
+</p>
+</section>
+
+
+<section name="Jtrix - Adaptive, scalable, distributed applications">
+<p>
+<a href="http://www.jtrix.org">Jtrix</a> is all about creating
+distributed applications which can move themselves around and find
+their best home.  By using JGroups we are able to cluster Jtrix
+nodes. Several servers can cluster together to present a unified
+runtime environment, which is actually physically split up over
+several machines. JGroups handles communication between the
+nodes. By virtue of its maturity, modular design and comprehensive
+documentation we were able to add clustering at a fraction of the
+effort it would have taken to create our own system, which would have
+been significant.
+<br/>
+<b>Nik Silver (jtrix.org)</b>
+</p>
+</section>
+
+<section name="GroupPac - FT-CORBA implementation">
+<p>
+<a href="http://grouppac.sourceforge.net">GroupPac</a> is a open
+source implementation of the Fault-Tolerant CORBA
+specification. Because of the complexity of implementing reliable
+multicast group communication, GroupPac was limited to passive
+replication.<br/>
+
+By using JGroups, we were enabled to redirect our efforts to others
+equally important aspect of the FT-CORBA specification, such as scalability
+and group communication tool support.<br/>
+
+Because of the time and effort spared by JGroups, GroupPac now offers
+active replication through a simple, elegant way of plugging in any group
+communication tool. Of course, the only supported group communication tool
+is JGroups!
+<br/>
+<b>Ricardo S. Padilha</b> (analyst and developer of GroupPac)
+</p>
+</section>
+
+
+<section name="INSP - Internet Seismic Processing System">
+<p>
+INSP (<a href="http://www.3dgeo.com/products/insp.html">Internet
+Seismic Processing System</a>) is a Java based client-server
+application that enables geophysicists to remotely create and submit
+for execution seismic processing flows, and also to visualize and QC
+seismic data. An important feature of INSP is the capability for
+real-time collaboration. INSP allows users from geographically
+distributed locations to interact by sharing cursors, do collaborative
+picking and coordinated image browsing.<br/>
+The collaboration module
+is built on top of JGroups, which takes care of multicast and the
+group membership management. Using JGroups allowed us to delegate
+the transport related problems and concentrate on the application
+details.
+<br/>
+<b>Ovidiu Feodorov</b> (3DGeo Development Inc.)
+</p>
+</section>
+
+
+<section name="AutodeskR LocationLogic platform">
+<p>
+The <a href="http://locationservices.autodesk.com">
+Autodesk<SUP>&#174;</SUP> LocationLogic platform</a> supports carrier network and
+location determination infrastructure, geographic content, and
+location-sensitive applications. ARC, a core component of the
+LocationLogic platform is a replicable cache based on reliable IP
+Multicasting feature of JGroups.<br/>
+Using JGroups allows the Autodesk<SUP>&#174;</SUP>
+Location Services Software Development team to provide a reliable cache
+replication mechanism without making many assumptions about underlying
+network capabilities.   JGroups also allows us to overcome the
+limitations of Distributed JMS features in Application Servers. 
+<br/>
+<b>Kumar Mettu</b> (Autodesk Location Services)
+</p>
+</section>
+
+
+<section name="d4cms - Highly available Content Management System">
+<p>
+<a href="http://www.d4cms.com">d4cms</a> is a CMS which specializes in
+being highly scalable and available while generating dynamic content.
+The underlying message-oriented-middleware, which aims to be fault
+tolerant, needs to communicate between several VMs and physical Servers.
+Our former RPC-via-HTTP implementation had several drawbacks facing the
+restrictions of HTTP and the complexity of ensuring atomicity between
+all members of a cluster.<p/>
+Now, using a 'Building Block' based on JGroups - namely the
+NotificationBus - greatly eases our lifes.<p/>
+Its extremely simple API, was exactly what we needed. Furthermore its
+performance is dramatically better than the solution we now dropped.
+<br/>
+<b><a href="mailto:u.schaefer@image-transfer.de">Uwe Schaefer</a>, Developer
+at <a href="http://www.image-transfer.de">imagetransfer GmbH</a></b>
+</p>
+</section>
+
+
+
+
+<section name="GCT - Group Communication Toolkit in .NET">
+<p>
+The <a href="http://www.smartlab.cis.strath.ac.uk/Projects/GCTProject/GCTProject.html">
+Group Communication Toolkit (GCT)</a> is a .NET toolkit that provides
+reliable and customisable group communication. The toolkit is written in
+C# and can be incorporated into any .NET application.<p/>
+
+The GCT is based on JGroups. It takes the design of JGroups,
+adapts it to the .NET environment and expands it to provide .NET
+Remoting group communication. <br/>
+
+<b><a href="mailto:ckoiak@cis.strath.ac.uk">Chris Koiak</a>, Computer Science Department
+The University of Strathclyde</b>
+</p>
+</section>
+
+
+
+<section name="OpenSymphony OSCache">
+<p>
+OSCache is a widely used, high performance J2EE caching solution.<p/>
+I needed to add some clustering to <a
+href="http://www.opensymphony.com/oscache">OSCache</a> 
+due to a requirement at work, and I was pleasantly surprised at how easy it was to
+use JGroups for this. It saved me a *lot* of time and pain so thank you,
+your efforts are much appreciated. You'll hopefully be as pleased as I am to
+know the clustering support has generated quite a bit of new interest in
+OSCache, far more than I had been expecting.<br/>
+
+<b><a href="mailto:chris_overseas@hotmail.com">Chris Miller</a>, Lead
+Developer OSCache</b>
+</p>
+</section>
+
+
+<section name="JCS (Java Caching System) Lateral Cache">
+<p>
+
+<a href="http://jakarta.apache.org/turbine/jcs/">JCS</a> is a
+distributed caching system written in java for server-side java
+applications. It is intended to speed up dynamic web applications by
+providing a means to manage cached data of various dynamic
+natures. Like any caching system, the JCS is most useful for high
+read, low put applications. Dynamic content and reporting systems can
+benefit most. However, any site that repeatedly constructs pages,
+dropdowns, or common search results form a database that is updated at
+intervals (rather than across categories continuously) can improve
+performance and scalability by implementing caching. Latency times
+drop sharply and bottlenecks move away from the database in an
+effectively cached system.
+
+</p>
+</section>
+
+
+
+<section name="JOnAS Clustering">
+<p>
+
+<a href="http://jonas.objectweb.org/">JOnAS</a> (<b>J</b>ava
+<b>O</b>pe<b>n</b> <b>A</b>pplication <b>S</b>erver) is an Open-Source
+/ LGPL implementation of J2EE [TM]. It is developed within the <a
+href="http://www.objectweb.org/">ObjectWeb</a> consortium, an
+open-source software community which aims at developing distributed
+middleware. JOnAS is a widely used application server which counts
+many <a href="http://jonas.objectweb.org/success.html">operational
+applications</a>.<br/>
+
+JGroups has been integrated within JOnAS for the purpose of
+implementing clustering features. JOnAS provides clustering mechanisms
+at two levels, Web (http requests) and EJB (rmi requests).  JGroups
+is used for HTTP session replication within a cluster, through the
+Tomcat-Replication module, and for EJB components clustering. In this
+last case, the "Clustered Method Invocation" protocol of JOnAS makes
+use of JGroups for synchronising registries of the cluster
+nodes. See the JOnAS documentation about <a
+href="http://jonas.objectweb.org/current/doc/howto/Clustering.html">clustering</a>
+for more details.<br/>
+
+<b><a href="mailto:jonas-team@objectweb.org">Francois Exertier</a>, 
+JOnAS Chief Architect, Bull, JOnAS Team </b>
+</p>
+</section>
+
+
+<section name="Jetty HTTP session replication">
+<p>
+Jetty is a popular open source web container. From a number of
+different backends to its distributable HttpSession manager, the
+JGroups based implementation is my current
+recommendation.<br/> JGroups' flexibility enables our users to tailor it
+to their networking environment. It is self-contained, needing no
+additional complex infrastructure, making installation and use
+simple. It is lightweight, partnering well with Jetty, which is
+streamlined for use on small as well as large platforms.<br/> The API is
+straightforward and powerful, allowing me to become productive very
+quickly. These features combine to form a very useful piece of
+infrastructure that no cluster should be without.<br/>
+
+<b><a href="mailto:jules@coredevelopers.net">Jules Gosnell</a>,
+ author of Jetty distributable HttpSession manager</b>
+</p>
+</section>
+
+
+
+
+<section name="Tomcat HTTP session replication">
+<p>
+
+The first implementation of Tomcat session replication was made using
+JGroups. Thanks to JGroups I was able to within days implement
+session replication since I didn't have to write any of the underlying
+logic.<br/>
+JGroups will be one of the pluggable communication/cluster
+adapters in Tomcat 5.x<br/>
+
+<b><a href="mailto:filip@filip.net">Filip Hanik</a>, 
+Lead Developer Session Replication Tomcat 4.X/5.X</b>
+</p>
+</section>
+
+
+
+<section name="RMI Multicast and Replication">
+<p>
+This <a href="https://sourceforge.net/projects/wenbozhu/">framework</a>
+is based on a generic RMI interceptor design (
+<a href="https://sourceforge.net/projects/wenbozhu">net.sf.extrmi</a>).<br/>
+JGroups has been successfully used to provide transparent (client-side)
+RMI multicast and FT replication support. Both closed group (VSYNC) and
+open group (clients are not part of the multicast group) are supported.
+Strict consistency (as offered by VSYNC) is maintained for both
+configurations. It also supports most replication semantics seen in the
+FT-CORBA standard, as well as the concept of object group. <br/>
+More efforts are yet to be made to extend this framework to support
+PBCAST (www.jgroups.org) type of optimistic multicast protocols and
+still meet strict consistency and high reliability requirements commonly
+defined for distributed FT computing.<br/>
+Contribution/comments are welcome!
+<b><a href="mailto:wenboz@nortel.com">Wenbo Zhu</a></b>
+</p>
+</section>
+
+
+
+</body>
+</document>
+
