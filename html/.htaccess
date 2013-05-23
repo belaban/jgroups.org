@@ -1,0 +1,12 @@
+#RedirectMatch ^/index.html      http://www.jgroups.org/javagroupsnew/docs/index.html
+#Redirect permanent /javagroupsnew/docs/ /
+#Redirect gone /javagroupsnew/docs/ 
+
+RedirectMatch ^/javagroupsnew/docs/(.*) /$1
+
+Options +Indexes
+
+#AliasMatch ^javagroupsnew/docs/(.*) /$1
+
+
+
