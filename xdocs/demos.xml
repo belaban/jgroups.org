@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Various demos</title>
+  </properties>
+
+<body>
+
+<section name="Draw">
+<p>
+Shows 2 instances of Draw and a graceful leave, plus a
+crash-leave. 
+The flash demo can be found <a href="../movies/DrawDemo.swf">here</a>.
+<br/>
+The Java Webstart demo can be found 
+<a href="jnlp/draw.jnlp">here</a> (start multiple instances).
+</p>
+<p>
+Note that you need a resolution of at least 1200x1024 to view the
+flash presentations !
+</p>
+</section>
+
+
+
+<section name="Draw with state">
+<p>
+Shows 2 instances of Draw which share a common state. The state is the
+canvas onto which we draw.<br/>
+The flash demo can be found <a href="../movies/DrawDemoWithState.swf">here</a>.
+</p>
+</section>
+
+
+
+<section name="Whiteboard">
+<p>
+Shows 2 instances of Whiteboard. Whiteboard is a simple presence
+application, showing each cluster node with a box with the user's name
+and information about the operating system and JGroups address.<br/>
+There's also a simple chatting functionality, where messages can be
+sent to individual nodes, or to all nodes in the cluster.
+<br/>
+The flash demo can be found <a href="../movies/WhiteboardDemo.swf">here</a>.
+</p>
+</section>
+
+
+
+
+<section name="ReplicatedHashMap">
+<p>
+Here we show 2 clustered stock servers, which replicate data between
+themselves. Any update (addition, modification or removal) is
+replicated between the servers.<br/>
+We also show how a new server acquires the stocks from an existing
+member (state transfer) and how a server can be restarted without the
+cluster losing its shared state.
+<br/>
+The flash demo can be found <a href="../movies/ReplicatedHashMap.swf">here</a>.
+</p>
+</section>
+
+
+
+
+
+<section name="ProtocolStack">
+<p>
+Here we show how to run the Draw demo with different stacks. The first
+example is UDP, then we look at the different protocols and then use
+TCP.
+<br/>
+The flash demo can be found <a href="../movies/ProtocolStack.swf">here</a>.
+</p>
+</section>
+
+
+
+<section name="ReplCache">
+<p>
+This demo shows 4 instances of ReplCache forming a cluster (cloud
+storage). The demo can be downloaded from 
+<a href="http://downloads.sourceforge.net/javagroups/replcachedemo.jar">http://downloads.sourceforge.net/javagroups/replcachedemo.jar</a>
+<br/>
+The flash demo can be found 
+<a href="../movies/ReplCache.swf">here</a>.
+<br/>
+The Java Webstart demo can be found 
+<a href="jnlp/replcache.jnlp">here</a> (start multiple instances).
+
+</p>
+</section>
+
+
+
+</body>
+</document>
+
