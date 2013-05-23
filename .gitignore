@@ -5,7 +5,7 @@
 .project
 .classpath
 .settings/
-.idea/*
+.idea/**
 .idea/
 .idea
 .DS_Store
