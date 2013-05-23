@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="Bela Ban">Bela Ban</author>
+    <title>Memcached implementation in JGroups</title>
+  </properties>
+
+<body>
+
+<section name="Memcached implementation in JGroups">
+<p>
+The article on PartitionedHashMap which is a memcached implementation
+on top of JGroups can be
+found <a href="memcached/memcached.html">here</a> (HTML) and 
+<a href="memcached/memcached.pdf">here</a> (PDF).
+</p>
+</section>
+
+
+
+
+</body>
+</document>
