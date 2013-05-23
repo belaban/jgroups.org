@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Papers</title>
+  </properties>
+
+<body>
+
+<section name="Papers and articles on JGroups (a bit dated)">
+<p>
+
+<ul>
+
+<li><a href="papers/proposal.ps.gz">
+Bela Ban: Adding Group Communication to Java in a Non-Intrusive Way 
+Using the Ensemble Toolkit</a>
+</li>
+
+<li><a href="papers/Patterns.ps.gz">
+Bela Ban: JavaGroups - Group Communication Patterns in Java</a>
+</li>
+
+<li><a href="papers/MethodResolution.ps.gz">
+Bela Ban: Static vs. Dynamic Method Resolution in Java: 
+The Case For Argument-Based Method Selection</a>
+    (Code: <a href="papers/MethodCall.java">MethodCall.java</a>, 
+           <a href="papers/MethodCallTest.java">MethodCallTest.java</a>   )
+</li>
+
+<li>(Rough Draft) <a href="papers/Funclets.ps.gz">
+Bela Ban: Building Blocks for Client and Server Functionality in Group Protocols: The
+Funclets Pattern</a>
+</li>
+
+<li><a href="papers/Coots.ps.gz">
+Bela Ban: Design and Implementation of a Reliable Group Communication Toolkit for Java
+</a>
+</li>
+
+<li><a href="papers/state.ps.gz">
+Bela Ban: State Transfer in the JavaGroups Toolkit (draft)
+</a>
+</li>
+
+<li><a href="papers/rmc.ps.gz">
+Bela Ban: Implementing Group Protocols Using Dynamic Remote Method Invocations (draft)
+</a>
+</li>
+
+<li><a href="papers/Middleware.ps.gz">
+Bela Ban: A Simple Deadlock Resolution Scheme for Synchronous Reliable Group RPC (draft)
+</a>
+</li>
+
+<li><a href="http://www.theserverside.com/resources/article.jsp?l=Tomcat">
+Filip Hanik: In Memory Session Replication in Tomcat 4
+</a>. Discussion of session replication in Tomcat 4. Step-by-step
+instructions how to set up session replication in two Tomcat instances.
+</li>
+
+<li><a href="papers/totaltoken.ps.gz">
+Vladimir Blagojevic: Implementing Totem's total ordering protocol in
+JavaGroups reliable group communication toolkit.
+</a> Detailed discussion of JGroups' TOTAL_TOKEN protocol as
+implemented by Vladimir. Discussion of performance measurements.
+</li>
+
+<li>
+<a href="papers/FlowControl.html">
+Ananda Bollu: The JavaGroups FLOW_CONTROL Protocol
+</a>
+Overview and configuration of the FLOW_CONTROL protocol
+</li>
+
+<li>
+<a href="http://www-106.ibm.com/developerworks/java/library/j-cluster1/">
+High-impact Web tier clustering, Part 1: Scaling Web services and
+applications with JavaGroups (IBM developWorks)
+</a>
+Detailed discussion of JGroups' concepts using session replication
+as an example.
+</li>
+
+
+
+</ul>
+
+
+</p>
+</section>
+
+
+
+<section name="Reliable Group Communication">
+<p>
+
+<li><a href="http://www.manning.com/Birman/">
+Ken Birman: Building Secure and Reliable Network Applications.
+</a> Excellent book on group communication. In-depth description of
+various protocols (atomic bcast, causal, total order, probabilistic
+broadcast). Very technical content.
+</li>
+
+</p>
+</section>
+
+
+<section name="Open Source">
+<p>
+
+<ul>
+
+<li><a href="papers/OpenSource.pdf">
+Open Source - A New Software Development Paradigm
+</a>
+</li>
+
+</ul>
+
+
+</p>
+</section>
+
+
+</body>
+</document>
+

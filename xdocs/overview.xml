@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="Bela Ban">Bela Ban</author>
+    <title>Overview</title>
+  </properties>
+
+<body>
+
+
+
+<section name="Overview">
+<p>
+JGroups is a reliable group communication toolkit written entirely in
+Java. It is based on IP multicast, but extends it with
+<ol>
+<li>reliability and</li>
+<li>group membership.</li>
+</ol>
+Reliability includes (among other things)
+<ul>
+<li>
+lossless transmission of a message to all recipients (with retransmission
+of missing messages)</li>
+<li>fragmentation of large messages into smaller ones and reassembly at the
+receiver's side</li>
+<li>
+ordering of messages, e.g. messages m1 and m2 sent by P will be received
+by all receivers in the same order, and not as m2, m1 (FIFO order)</li>
+<li>
+atomicity: a message will be received by all receivers, or none.</li>
+</ul>
+Group Membership includes
+<ul>
+<li>
+Knowledge of who the members of a group are and</li>
+
+<li>
+Notification when a new member joins, an existing member leaves, or an
+existing member has crashed</li>
+</ul>
+
+The table below shows where JGroups fits in:<br/>
+
+<br/>
+<table border="0" width="50%" height="15%" bgcolor="#FFCC00" nosave="true">
+
+<tr align="center" valign="center" nosave="true">
+<td> </td>
+<td><b>Unreliable</b></td>
+<td><b>Reliable</b></td>
+</tr>
+
+<tr align="center" valign="center" nosave="true">
+<td><b>Unicast</b></td>
+<td>UDP</td>
+<td align="center" valign="center" nosave="true">TCP</td>
+</tr>
+
+<tr align="center" valign="center" nosave="true">
+<td nosave="true"><b>Multicast</b></td>
+<td>IP Multicast</td>
+<td nosave="true"><font color="#3333FF">JGroups</font></td>
+</tr>
+</table>
+
+
+<br/>
+In unicast communication,
+where one sender sends a message to one receiver, there is UDP and TCP.
+UDP is unreliable, packets may get lost, duplicated, may arrive out of
+order, and there is a maximum packet size restriction. TCP is also unicast,
+but takes care of message retransmission for missing messages, weeds out
+duplicates, fragments packets that are too big and present messages to
+the application in the order in which they were sent. In the multicast
+case, where one sender sends a message to many receivers, IP Multicast
+extends UDP: a sender sends messages to a multicast address and the receivers
+have to join that multicast address to receive them. Like in UDP, message
+transmission is still unreliable, and there is no notion of membership
+(who has currently joined the multicast address).<br/>
+
+<br/>
+JGroups extends reliable unicast message transmission (like in TCP)
+to multicast settings. As described above it provides reliability and group
+membership on top of IP Multicast. Since every application has different
+reliability needs, JGroups provides a flexible protocol stack architecture
+that allows users to put together custom-tailored stacks, ranging from
+unreliable but fast to highly reliable but slower stacks.<br/>
+
+<br/>
+As an example,
+a user might start with a stack only containing IP Multicast. To add loss-less
+transmission, he might add the NAKACK protocol (which also weeds out duplicates).
+Now messages sent from a sender are always received by the recipients,
+but the order in which they will be received is undefined. Therefore, the
+user might choose to add the FIFO layer to impose per/sender ordering.
+If ordering should be imposed over all the senders, then the TOTAL protocol
+may be added. The Group Membership Service (GMS) and FLUSH protocols provide
+for group membership: they allow the user to register a callback function
+that will be invoked whenever the membership changes, e.g. a member joins,
+leaves or crashes. In the latter case, a failure detector (FD) protocol
+is needed by the GMS to announce crashed members. If new members want to
+obtain the current state of existing members, then the STATE_TRANSFER protocol
+has to be present in this custom-made stack. Finally, the user may want
+to encrypt messages, so he adds the CRYPT protocol (which encrypts/decrypts
+messages and takes care of re-keying using a key distribution
+toolkit).<br/>
+
+<br/>
+Using composition of protocols (each taking care of a different aspect)
+to build reliable multicast communication has the benefit that
+<ul>
+<li>
+users of a stack only pay for the protocols they use and</li>
+
+<li>
+since protocols are independent of each other, they can be modified, replaced
+or new ones can be added, improving modularity and maintainability.</li>
+</ul>
+
+</p>
+</section>
+
+
+<section name="Contributions">
+<p>
+Through its flexible protocol stack architecture, JGroups can be
+adapted to any environment. This can be done by replacing, removing or
+modifying existing protocols, or by adding new protocols. JGroups is
+an ideal testbed for development and experimentation of new reliable multicast
+protocols written in Java. As JGroups is an <a href="http://www.opensource.org">OpenSource</a>
+project, new protocols are always welcome and will be integrated.
+</p>
+</section>
+
+
+
+</body>
+</document>
+
