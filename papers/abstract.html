@@ -1,0 +1,72 @@
+
+<html>
+<head>
+<title>A Generic Management Model for CORBA, CMIP and SNMP -- Abstract</title>
+</head>
+<LINK REL="STYLESHEET" HREF="user.css">
+
+<body>
+<h1>A Generic Management Model for CORBA, CMIP and SNMP</h1>
+
+<font size=+2>T</font>he predominant models to perform network and
+systems management have traditionally been SNMP and CMIP. However,
+SNMP is beginning to reach its limits when more complex management
+tasks are to be performed, and CMIP -- owing to its complexity and
+slow standardization process -- has not yet gained the same acceptance
+as SNMP.
+<p>
+<font size=+2>T</font>he advent of object-oriented distributed processing models has
+brought forward a third candidate, CORBA, originally not targeted
+specifically at management tasks, but in many respects nevertheless
+suitable for managing both local and wide area networks.
+<p>
+<font size=+2>C</font>ORBA is more powerful than SNMP and less complex than CMIP. Its
+affiliation with C++, a widely used programming language, lends it to
+immediate use by a huge number of programmers and allows them to
+introduce distribution into their programs without a too drastic
+change of philosophy.
+<p>
+<font size=+2>I</font>t is therefore assumed that CORBA will become important in the
+network and systems management domain as well as in the distributed
+systems domain. To be more precise, CORBA will be used to implement
+management applications (managers) and managed entities (agents).
+<p>
+<font size=+2>T</font>he author assumes that, in the near future, all models will have to
+coexist, because investments in older models have been made, because
+CORBA may not yet be ready for certain specialized management tasks
+(e.g. embedded management agents), or simply for political reasons.
+<p>
+<font size=+2>T</font>herefore, the need arises to manage a system written in <em>one</em>
+model from a system written in a <em>different model</em>, for example to
+manage an OSI agent using a CORBA-based manager. Assuming that CORBA
+will achieve broad acceptance in the management world, it would be
+desirable to be able to manage other models transparently from
+CORBA. The benefits would be investment protection of existing managed
+entities, the opening of the SNMP- and CMIP-dominated management world
+to management-inexperienced (CORBA) programmers, and the unification
+of management in one common, simple, and yet powerful model.
+<p>
+
+<font size=+2>T</font>he goal of this work is to examine how CORBA can be used for network and
+systems management. The focus is on the client side; that is, how CORBA can
+be used to implement management applications that <em>access</em> managed
+entities, rather than how CORBA can be used to <em>implement</em> managed
+entities.
+
+<p>
+<font size=+2>W</font>ork in this area already exists; an overview will be given and it
+will be shown that most work focuses on <em>compile-time static
+translation</em> of one model to another. This generates a number of
+problems.
+<p>
+<font size=+2>T</font>herefore a <em>dynamic runtime-based</em> approach is proposed that
+eliminates these problems and has several advantages over static
+approaches. The proposed model is a combination of a generic object
+model, metadata, and adapters that convert between the generic and
+specific target models. Although the elements of the proposed models
+are established and well known, their combination and their
+application to the domain of management is novel and makes for the
+issues of interest in this thesis.
+
+</body>
+</html>
