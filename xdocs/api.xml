@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+
+
+
+<document>
+
+  <properties>
+    <author email="Bela Ban">Bela Ban</author>
+    <title>API</title>
+  </properties>
+
+
+
+<body>
+
+
+<section name="Application Programming Interface">
+<p>
+
+The API of JGroups is very simple (similar to a UDP socket). The code
+is always the same, regardless of the protocol stack used.<p/>
+
+To be able to send/receive messages, a <i>channel</i> has to be created.
+The reliability of a channel is specified via XML, which then causes
+the creation of the underlying protocol stack. <br/>
+The example below creates a channel and sends/receives 1 message:<br/>
+
+<br/>
+
+<pre class="code">
+      JChannel channel=<b>new JChannel</b>("/home/bela/udp.xml");
+      channel.setReceiver(new ReceiverAdapter() {
+          public void receive(Message msg) {
+              System.out.println("received msg from " + msg.getSrc() + ": " + msg.getObject());
+          }
+      });
+      channel.<b>connect</b>("MyCluster");
+      channel.<b>send</b>(new Message(null, null, "hello world"));
+      channel.<b>close</b>();
+</pre>
+
+<p/>
+
+The channel's properties are specified in the constructor, in this
+case we refer to an XML file with an absolute path. If we use a
+relative path, then the file is looked up on the classpath.
+<p/>
+
+The XML file contains a list of protocols to be used by the new
+channel. Protocols included might be transport, discovery,
+fragmentation, reliable transmission, flow control and state transfer.
+<p/>
+
+To join a cluster, <b>connect()</b> is called. It returns when the member
+has successfully joined the cluster named "MyCluster", or when it has created
+a new cluster (if it is the first member).
+<p/>
+
+Then a message is sent using the <b>send()</b> method. A message contains
+the receiver's address ('null' = all group members), the sender's address
+('null', will be filled in by the protocol stack before sending the message)
+and a byte buffer. In the example, the String "hello world" is set
+to be the message's contents. It is serialized into the message's byte
+buffer.
+<p/>
+
+Since the message is sent to all members, the sender will also receive
+it (unless the socket option 'receive own multicasts' is set to false).
+This is done via the <b>receive()</b> callback, which was registered
+with the channel before.
+<p/>
+
+Finally, the member closes the channel and thus leaves the cluster.
+This results in a notification being sent to all members who are registered
+for membership change notifications.
+<p/>
+
+</p>
+</section>
+
+
+
+
+</body>
+</document>
+

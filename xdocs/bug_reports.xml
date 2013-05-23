@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Submitting Bug Reports</title>
+  </properties>
+
+<body>
+
+<section name="Bug Reports">
+<p>
+
+If you think you have discovered a bug, please submit a bug report 
+<a href="http://jira.jboss.com/jira/browse/JGRP">here</a>. 
+You need to attach the following information (if available):
+<ul>
+<li>Version of JGroups: executing 'java org.jgroups.Version' will print its version</li>
+<li>A small test program that reproduces the problem. Attach it to the bug report, don't put
+it inside the email</li>
+<li>A description of how the bug is encountered</li>
+</ul>
+</p>
+</section>
+
+
+</body>
+</document>
+

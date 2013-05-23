@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Acknowledgments</title>
+  </properties>
+
+<body>
+
+  <section name="Acknowledgments">
+<p>
+
+Acknowledgments go to the following people:
+<ul>
+<li>Ken Birman (Cornell) who provided funding for my 2 years as
+post-doc at Cornell, and for valuable discussions</li>
+<li>Robbert VanRenesse with whom I had many insightful discussions
+about the design of Horus and Ensemble, and Virtual Synchrony in general</li>
+<li>My wife Jeannette who excused her husband for spending hours in
+front of a computer on weekends</li>
+</ul>
+
+</p>
+  </section>
+
+
+
+</body>
+</document>
+

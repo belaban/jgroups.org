@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="Bela Ban">Bela Ban</author>
+    <title>Building Blocks</title>
+  </properties>
+
+<body>
+
+
+
+
+<section name="Building Blocks">
+<p>
+
+Channels are deliberately simple so that all possible can use them. However,
+JGroups also provides high-level abstractions, so called <i>building
+blocks</i>. They can be put between the application and the channel. The
+application would then use the building blocks instead of channels. An
+example is <i>RpcDispatcher</i> which allows applications to make remote
+group method calls:<br/>
+
+<br/>
+<pre class="code">
+public class RpcDispatcherTest {
+    Channel       channel;
+    RpcDispatcher disp;
+    RspList       rsp_list;
+    String        props="/home/bela/udp.xml"
+
+    public int <b>print</b>(int number) {
+        System.out.println("print(" + number + ")");
+        return number * 2;
+    }
+
+    public void start() throws Exception {
+        channel=new <b>JChannel</b>(props);
+
+        disp=<b>new RpcDispatcher</b>(channel, null, null, this);
+
+        channel.<b>connect</b>("RpcDispatcherTestGroup");
+
+        for(int i=0; i &lt; 100; i++) {
+
+           Util.sleep(1000);
+
+           rsp_list=disp.<b>callRemoteMethods</b>(null, "print", new Integer(i),
+                                                  GroupRequest.GET_ALL,
+                                                  0);
+
+           System.out.println("Responses: " + rsp_list);
+        }
+
+        channel.close();
+    }
+}
+</pre>
+<br/>
+<p/>
+As before, the example creates a channel specifying the properties.
+It also defines a method <b>print()</b> which will be called by the RpcDispatcher
+later on. Then an instance of RpcDispatcher is created on top of the channel
+and the channel connected (this joins the new member to the group). Now,
+messages can be sent and received. But instead of sending/receiving messages
+using the channel, the application invokes remote method call using RpcDispatcher's
+<b>callRemoteMethods()</b>.<p/>
+The first argument 'null' means send to all group members, "print" is the
+name of the method to be invoked, 'new Integer(i)' is the argument to the
+<b>print()</b>
+method, GET_ALL means wait until the responses from all group members have
+been received and '0' specifies the timeout (in this case, it means wait
+forever). RpcDispatcher sends a multicast message (containing the method
+call) to all members (e.g. 4 members, including itself) and waits for 4
+replies. If one or more of the members crash in the meantime, the call
+nevertheless returns and has those replies marked as 'suspected' in the
+response list. The response list contains an entry for each expected reply,
+which has the address of the replier, the value (if any, in our case it
+is an integer), and a flag (received, not received (in case of timeouts)
+or suspected). If this member is the only group member, then the method
+call will call its own <b>print()</b> method.
+<p/>
+
+The current set of protocols shipped with JGroups provide 
+<a href="http://www.cs.cornell.edu/Info/Projects/HORUS/Papers.html">Virtual
+Synchrony</a> properties: messages are sent/received in <i>views</i>. Each
+member has a view which is a set of members that constitute the current
+membership. When the membership changes, a new view will be installed by
+all members. Views are installed in the same order at all members. The
+set of messages between 2 consecutive views will be the same at all receivers.
+Messages sent in view V1 will be received by all non-faulty members in
+view V1.
+<p/>
+
+</p>
+</section>
+
+
+<section name="Contributions">
+<p>
+Through its flexible protocol stack architecture, JGroups can be
+adapted to any environment. This can be done by replacing, removing or
+modifying existing protocols, or by adding new protocols. JGroups is
+an ideal testbed for development and experimentation of new reliable multicast
+protocols written in Java. As JGroups is an <a href="http://www.opensource.org">OpenSource</a>
+project, new protocols are always welcome and will be integrated.
+</p>
+</section>
+
+
+
+</body>
+</document>
+
