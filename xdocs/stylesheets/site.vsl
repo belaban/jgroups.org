@@ -276,7 +276,14 @@ Hosted by <a href="http://sourceforge.net/projects/javagroups"><img src="http://
 
             
             
-	    <h1>JGroups - A Toolkit for Reliable Messaging</h1>
+	    ## <h1>JGroups - A Toolkit for Reliable Messaging</h1>
+
+	    <h1>
+	    ## <img src="images/jgroups-banner-1180px.png"
+	    <img src="http://static.jboss.org/images/jgroups/jgroups-banner-1180px.png"
+	         alt="JGroups - A Toolkit for Reliable Messaging"
+	         width="100%" />
+	    </h1>
 
 
 
