@@ -270,11 +270,13 @@ Hosted by <a href="http://sourceforge.net/projects/javagroups"><img src="http://
 
         <body bgcolor="$bodybg" text="$bodyfg" link="$bodylink">
 
-            <link rel="icon" 
-                  href="images/jgroups_icon_32px.png" 
-                 type="image/png">
+            ## <link rel="icon"
+            ##      href="images/jgroups_icon_32px.png"
+            ##     type="image/png">
 
-            
+            ## <link rel="shortcut icon" href="images/favicon.ico" />
+            <link rel="shortcut icon" href="http://static.jboss.org/images/jgroups/favicon.ico" />
+
             
 	    ## <h1>JGroups - A Toolkit for Reliable Messaging</h1>
 

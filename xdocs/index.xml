@@ -9,11 +9,8 @@
     <body>
 
         <section name="">
-
-            <img src="/images/jgroups_logo_450px.png" alt="JGroups logo"/>
-
+            <!--img src="/images/jgroups_logo_450px.png" alt="JGroups logo"/-->
             <p>
-
                 JGroups is a toolkit for reliable messaging. It can be used to create clusters whose
                 nodes can send messages to each other. The main features include
                 <ul>
