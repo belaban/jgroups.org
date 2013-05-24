@@ -64,7 +64,6 @@
         </anakia>
 
         <echo message="Copying directories to ${build.dir}:"/>
-        <copyDirectory from="${docs.src}/images" to="${build.dir}/images"/>
 
         <copyDirectory from="${html.dir}" to="${build.dir}"/>
 
