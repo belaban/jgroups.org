@@ -1,31 +1,28 @@
 <?xml version="1.0"?>
 <document>
 
-  <properties>
-    <author email="belaban@yahoo.com">Bela Ban</author>
-    <title>License</title>
-  </properties>
+    <properties>
+        <author email="belaban@yahoo.com">Bela Ban</author>
+        <title>License</title>
+    </properties>
 
-<body>
+    <body>
 
 
+        <section name="Apache License 2.0">
+            <p>
+                Since version 3.4, JGroups is licensed under the
+                <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a>.
+                Earlier versions are licensed under LGPL 2.1 (see below).
+            </p>
+        </section>
 
-<section name="LGPL">
-<p>
-JGroups is open source licensed under the Library (or Lesser) GNU Public
-License 2.1 <a href="http://www.opensource.org/licenses/lgpl-license.php">(LGPL)</a>.
-
-<p/>
-A commercial product can use JGroups (as a library) without
-having to become open source under the LGPL. (This is the big
-difference to the GPL, where applications using it must be licensed
-under the GPL as well.) So, if you for example use JGroups to write
-a product for clustering an application server, you can sell this product
-without any restrictions (ship it with JGroups included) and you
-do <em>not</em> have to make your application open source.
-
-</p>
-</section>
+        <section name="LGPL">
+            <p>
+                Up to and including version 3.3, JGroups was licensed under the Library (or Lesser) GNU Public
+                License 2.1 <a href="http://www.opensource.org/licenses/lgpl-license.php">(LGPL)</a>.
+            </p>
+        </section>
 
 
 </body>

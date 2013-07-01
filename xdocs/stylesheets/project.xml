@@ -5,19 +5,19 @@
 
     <body>
         <menu name="JGroups">
-            <item name="Home"                  href="/index.html"/>
-            <item name="Overview"              href="/overview.html"/>
-            <item name="Sample code"           href="/api.html"/>
-            <item name="Building Blocks"       href="/blocks.html"/>
-            <item name="License"               href="/license.html"/>
-            <item name="Success Stories"       href="/success.html"/>
-            <item name="Consulting"            href="/consulting.html"/>
-            <item name="IRC"                   href="/irc.html"/>
+            <item name="Home"                    href="/index.html"/>
+            <item name="Overview"                href="/overview.html"/>
+            <item name="Sample code"             href="/api.html"/>
+            <item name="Building Blocks"         href="/blocks.html"/>
+            <item name="License"                 href="/license.html"/>
+            <item name="Success Stories"         href="/success.html"/>
+            <item name="Consulting"              href="/consulting.html"/>
+            <item name="IRC"                     href="/irc.html"/>
         </menu>
     
 
         <menu name="Documentation">
-            <item name="Manual / tutorial"                    href="/ug.html"/>
+            <item name="Manual / tutorial"       href="/ug.html"/>
             <item name="Javadoc"                 href="/javadoc/index.html"/>
             <item name="Blogs"                   href="/blogs.html"/>
             <item name="Demos"                   href="/demos.html"/>
@@ -32,7 +32,7 @@
         </menu>
 
         <menu name="Experimental">
-            <item name="Memcached on JGroups"  href="/memcached.html"/>
+            <item name="Memcached on JGroups"    href="/memcached.html"/>
             <item name="A clustered task distribution system" href="/taskdistribution.html"/>
             <item name="ReplCache: variable caching in the cloud"  href="/replcache.html"/>
         </menu>
