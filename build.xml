@@ -105,9 +105,16 @@
 
     <target name="copy-schema" depends="check-jgroups-schema"
             description="Checks whether JGroups/schema/JGroups-X.Y.xsd exists and and copies it to ./build ">
-        <!--ant dir="${jgroups.dir}" antfile="${jgroups.dir}/build.xml" target="create-schema" inheritall="false"/-->
-        <fail unless="jgroups.schema.exists" message="${jgroups.dir}/classes/schema doesn't exist, please execute create-schema in ${jgroups.dir}"/>
+        <!--ant dir="${jgroups.dir}" antfile="${jgroups.dir}/build.xml" target="make-schema" inheritall="false"/-->
+        <fail unless="jgroups.schema.exists" message="${jgroups.dir}/classes/schema doesn't exist, please execute make-schema in ${jgroups.dir}"/>
         <copyDirectory from="${jgroups.dir}/classes/schema" to="${build.dir}/schema"/>
+
+        <copy todir="${build.dir}/schema/">
+            <fileset dir="${jgroups.dir}/classes/schema">
+                <include name="JGroups-*.xsd"/>
+            </fileset>
+            <globmapper from="JGroups*.xsd" to="JGroups.xsd"/>
+        </copy>
     </target>
 
 
