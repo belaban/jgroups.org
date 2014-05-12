@@ -85,6 +85,12 @@
 
         <copyDirectory from="${jnlp.dir}" to="${build.dir}/jnlp"/>
 
+        <copy toDir="${build.dir}">
+            <fileset dir="${jgroups.dir}">
+                <include name="project.properties" />
+            </fileset>
+        </copy>
+
         <delete>
             <fileset dir="." defaultexcludes="no">
                 <include name="**/*~"/>
