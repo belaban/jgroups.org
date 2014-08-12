@@ -154,9 +154,9 @@
     </target>
 
     <target name="copy-tutorial" if="jgroups.exists" depends="check-jgroups"
-            description="Copies the PDF and HTML files from JGroups/doc/tutorial/build/en to ./build/tutorial">
+            description="Copies the HTML files from JGroups/doc/tutorial/build to ./build/tutorial">
         <ant antfile="${jgroups.dir}/build.xml" target="tutorial" inheritall="false"/>
-        <copyDirectory from="${jgroups.dir}/doc/tutorial/target/docbook/publish/en" to="${build.dir}/tutorial/"/>
+        <copyDirectory from="${jgroups.dir}/doc/tutorial/build" to="${build.dir}/tutorial/"/>
     </target>
 
     <target name="clean" description="Removes generated files and directories">
