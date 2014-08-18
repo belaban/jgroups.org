@@ -150,7 +150,7 @@
     <target name="copy-manual" if="jgroups.exists" depends="check-jgroups"
             description="Copies the PDF and HTML files from JGroups/doc/manual/build/en to ./build/manual">
         <ant antfile="${jgroups.dir}/build.xml" target="manual" inheritall="false"/>
-        <copyDirectory from="${jgroups.dir}/doc/manual/target/docbook/publish/en" to="${build.dir}/manual/"/>
+        <copyDirectory from="${jgroups.dir}/doc/manual/build" to="${build.dir}/manual/"/>
     </target>
 
     <target name="copy-tutorial" if="jgroups.exists" depends="check-jgroups"
