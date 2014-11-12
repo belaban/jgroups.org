@@ -33,7 +33,8 @@
 <section name="Wiki">
     <p>
         <ul>
-            <li><a href="http://www.jboss.org/wiki/Wiki.jsp?page=JGroups">Wiki on jboss.com</a></li>
+            <li><a href="http://www.jboss.org/wiki/Wiki.jsp?page=JGroups">Wiki on jboss.org</a></li>
+            <li><a href="https://github.com/belaban/JGroups/wiki">Wiki on GitHub</a></li>
         </ul>
         <br/>
     </p>
