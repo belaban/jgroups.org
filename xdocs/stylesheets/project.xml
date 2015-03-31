@@ -17,6 +17,7 @@
     
 
         <menu name="Documentation">
+            <item name="Trainings"               href="/workshops.html"/>
             <item name="Manual / tutorial"       href="/ug.html"/>
             <item name="Javadoc"                 href="/javadoc/index.html"/>
             <item name="Blogs"                   href="/blogs.html"/>

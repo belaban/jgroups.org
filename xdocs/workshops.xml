@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<document>
+
+    <properties>
+        <author email="belaban@yahoo.com">Bela Ban</author>
+        <title>JGroups workshops</title>
+    </properties>
+
+    <body>
+
+
+<section name="JGroups workshops">
+    <p>
+       The workshops are 4.5 day courses on the following topics:
+       <ol>
+          <li>Mon: API (introductory)</li>
+          <li>Tue: building blocks (RPCs, distributed counters, locks etc) (medium)</li>
+          <li>Wed/Thu: advanced topics and protocols (advanced)</li>
+          <li>Fri: admin stuff (medium)</li>
+       </ol>
+    </p>
+    <p>
+        The workshops will be a mixture of presentations (70%) and
+        labs (30%). We will have labs on all important topics. I'm
+        teaching the workshops myself, so if you have any JGroups
+        questions, I should be able to answer them... :-)
+    </p>
+    <p>
+        We will have no more than 15 (in some locations 20) attendees,
+        so there should be enough time to answer all (also off-topic)
+        questions.
+    </p>
+    <p>
+        A detailed outline of the contents is
+        <a href="https://github.com/belaban/workshop/blob/master/slides/toc.adoc">here</a>.
+    </p>
+    <p>
+        For questions contact me: belaban at yahoo dot com.
+    </p>
+
+
+</section>
+
+
+<section name="Registration">
+    <p>
+       To get the early bird discount use code JGRP2015 when registering.
+    </p>
+    <p>
+        <ul>
+            <li><a href="http://www.amiando.com/JGroupsWorkshopBerlin.html">Berlin June 1 - 5 2015</a></li>
+            <li>Rome June 8 - 12 2015 (sold out)</li>
+            <li>New York NY Sept 14-18 2015 (registration not yet open)</li>
+            <li>Mountain View CA Sept 21-25 2015 (registration not yet open)</li>
+        </ul>
+        <br/>
+    </p>    
+</section>
+
+
+
+</body>
+</document>
+
