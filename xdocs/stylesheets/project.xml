@@ -32,7 +32,8 @@
             <item name="Project swag"            href="http://www.cafepress.com/jbossorg/7489623"/>
         </menu>
 
-        <menu name="Experimental">
+        <menu name="Misc">
+            <item name="jgroups-raft"            href="http://belaban.github.io/jgroups-raft/"/>
             <item name="Memcached on JGroups"    href="/memcached.html"/>
             <item name="A clustered task distribution system" href="/taskdistribution.html"/>
             <item name="ReplCache: variable caching in the cloud"  href="/replcache.html"/>
