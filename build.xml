@@ -9,7 +9,8 @@
     <property name="html.dir"             value="html"/>
     <property name="perf.dir"             value="perf"/>
     <property name="hsqldbr.dir"          value="hsqldbr"/>
-    <property name="jgroups.dir"          value="../JGroups"/>
+    <property name="jgroups.dir.3"        value="../JGroups-3.6-branch"/>
+    <property name="jgroups.dir.4"        value="../JGroups"/>
     <property name="jgroups.articles.dir" value="../JGroupsArticles"/>
     <property name="jnlp.dir"             value="jnlp"/>
 
@@ -17,21 +18,28 @@
     <path id="classpath">
         <fileset dir="./lib">
             <include name="**/*.jar"/>
-            <!--include name="${jgroups.dir}/lib/*.jar"/-->
         </fileset>
     </path>
 
 
-    <target name="check-jgroups" description="Checks whether the ${jgroups.dir} dir exists">
-        <available file="${jgroups.dir}" type="dir" property="jgroups.exists"/>
+    <target name="check-jgroups3" description="Checks whether the ${jgroups.dir.3} dir exists">
+        <available file="${jgroups.dir.3}" type="dir" property="jgroups.exists.3"/>
+    </target>
+
+    <target name="check-jgroups4" description="Checks whether the ${jgroups.dir.4} dir exists">
+        <available file="${jgroups.dir.4}" type="dir" property="jgroups.exists.4"/>
     </target>
 
     <target name="check-jgroups-articles" description="Checks whether the ${jgroups.articles.dir} dir exists">
         <available file="${jgroups.articles.dir}" type="dir" property="jgroups.articles.exists"/>
     </target>
 
-    <target name="check-jgroups-schema" description="Checks whether the ${jgroups.dir}/classes/schema dir exists">
-        <available file="${jgroups.dir}/classes/schema" type="dir" property="jgroups.schema.exists"/>
+    <target name="check-jgroups-schema3" description="Checks whether the ${jgroups.dir.3}/classes/schema dir exists">
+        <available file="${jgroups.dir.3}/classes/schema" type="dir" property="jgroups.schema.exists3"/>
+    </target>
+
+    <target name="check-jgroups-schema4" description="Checks whether the ${jgroups.dir.4}/classes/schema dir exists">
+        <available file="${jgroups.dir.4}/classes/schema" type="dir" property="jgroups.schema.exists4"/>
     </target>
 
     <target name="prepare">    
@@ -73,20 +81,24 @@
 
         <copyDirectory from="${hsqldbr.dir}" to="${build.dir}/hsqldbr"/>
 
-        <antcall target="copy-schema" description="Copies the schema dir to build/schema"/>
+        <antcall target="copy-schema3" description="Copies the schema dir to build/schema"/>
+        <antcall target="copy-schema4" description="Copies the schema dir to build/schema"/>
 
         <antcall target="copy-articles" description="Copies articles from JGroupsArticles"/>
 
-        <antcall target="copy-javadoc" description="Generates and copies the javadoc to the build dir"/>
+        <antcall target="copy-javadoc3" description="Generates and copies the javadoc to the build dir"/>
+        <antcall target="copy-javadoc4" description="Generates and copies the javadoc to the build dir"/>
 
-        <antcall target="copy-manual" description="Copies the manual to build/manual"/>
+        <antcall target="copy-manual3" description="Copies the manual to build/manual"/>
+        <antcall target="copy-manual4" description="Copies the manual to build/manual"/>
 
-        <antcall target="copy-tutorial" description="Copies the tutorial to build/tutorial"/>
+        <antcall target="copy-tutorial3" description="Copies the tutorial to build/tutorial"/>
+        <antcall target="copy-tutorial4" description="Copies the tutorial to build/tutorial"/>
 
         <copyDirectory from="${jnlp.dir}" to="${build.dir}/jnlp"/>
 
         <copy toDir="${build.dir}">
-            <fileset dir="${jgroups.dir}">
+            <fileset dir="${jgroups.dir.4}">
                 <include name="project.properties" />
             </fileset>
         </copy>
@@ -102,20 +114,29 @@
 
 
 
-    <target name="copy-javadoc" if="jgroups.exists" depends="check-jgroups"
+    <target name="copy-javadoc3" if="jgroups.exists.3" depends="check-jgroups3"
             description="Generates JGroups/dist/javadoc and copies it to ./build if the JGroups directory is found ">
-        <ant dir="${jgroups.dir}" antfile="${jgroups.dir}/build.xml" target="javadoc" inheritall="false"/>
-        <copyDirectory from="${jgroups.dir}/dist/javadoc" to="${build.dir}/javadoc"/>
+        <ant dir="${jgroups.dir.3}" antfile="${jgroups.dir.3}/build.xml" target="javadoc" inheritall="false"/>
+        <copyDirectory from="${jgroups.dir.3}/dist/javadoc/" to="${build.dir}/javadoc/"/>
     </target>
 
+    <target name="copy-javadoc4" if="jgroups.exists.4" depends="check-jgroups4"
+            description="Generates JGroups/dist/javadoc and copies it to ./build if the JGroups directory is found ">
+        <ant dir="${jgroups.dir.4}" antfile="${jgroups.dir.4}/build.xml" target="javadoc" inheritall="false"/>
+        <copyDirectory from="${jgroups.dir.4}/dist/javadoc" to="${build.dir}/javadoc4"/>
+    </target>
 
-    <target name="copy-schema" depends="check-jgroups-schema"
+    <target name="copy-schema3" depends="check-jgroups-schema3"
             description="Checks whether JGroups/schema/JGroups-X.Y.xsd exists and and copies it to ./build ">
-        <!--ant dir="${jgroups.dir}" antfile="${jgroups.dir}/build.xml" target="make-schema" inheritall="false"/-->
-        <fail unless="jgroups.schema.exists" message="${jgroups.dir}/classes/schema doesn't exist, please execute make-schema in ${jgroups.dir}"/>
-        <copyDirectory from="${jgroups.dir}/classes/schema" to="${build.dir}/schema"/>
+        <fail unless="jgroups.schema.exists3" message="${jgroups.dir.3}/classes/schema doesn't exist, please execute make-schema in ${jgroups.dir.3}"/>
+        <copyDirectory from="${jgroups.dir.3}/classes/schema" to="${build.dir}/schema"/>
     </target>
 
+    <target name="copy-schema4" depends="check-jgroups-schema4"
+            description="Checks whether JGroups/schema/JGroups-X.Y.xsd exists and and copies it to ./build ">
+        <fail unless="jgroups.schema.exists4" message="${jgroups.dir.4}/classes/schema doesn't exist, please execute make-schema in ${jgroups.dir.4}"/>
+        <copyDirectory from="${jgroups.dir.4}/classes/schema" to="${build.dir}/schema"/>
+    </target>
 
 
     <target name="copy-articles" if="jgroups.articles.exists" depends="check-jgroups-articles"
@@ -147,16 +168,28 @@
 
     </target>
 
-    <target name="copy-manual" if="jgroups.exists" depends="check-jgroups"
+    <target name="copy-manual3" if="jgroups.exists.3" depends="check-jgroups3"
             description="Copies the PDF and HTML files from JGroups/doc/manual/build/en to ./build/manual">
-        <ant antfile="${jgroups.dir}/build.xml" target="manual" inheritall="false"/>
-        <copyDirectory from="${jgroups.dir}/doc/manual/build" to="${build.dir}/manual/"/>
+        <ant antfile="${jgroups.dir.3}/build.xml" target="manual" inheritall="false"/>
+        <copyDirectory from="${jgroups.dir.3}/doc/manual/build" to="${build.dir}/manual/"/>
     </target>
 
-    <target name="copy-tutorial" if="jgroups.exists" depends="check-jgroups"
+    <target name="copy-manual4" if="jgroups.exists.4" depends="check-jgroups4"
+            description="Copies the PDF and HTML files from JGroups/doc/manual/build/en to ./build/manual">
+        <ant antfile="${jgroups.dir.4}/build.xml" target="manual" inheritall="false"/>
+        <copyDirectory from="${jgroups.dir.4}/doc/manual/build" to="${build.dir}/manual4/"/>
+    </target>
+
+    <target name="copy-tutorial3" if="jgroups.exists.3" depends="check-jgroups3"
             description="Copies the HTML files from JGroups/doc/tutorial/build to ./build/tutorial">
-        <ant antfile="${jgroups.dir}/build.xml" target="tutorial" inheritall="false"/>
-        <copyDirectory from="${jgroups.dir}/doc/tutorial/build" to="${build.dir}/tutorial/"/>
+        <ant antfile="${jgroups.dir.3}/build.xml" target="tutorial" inheritall="false"/>
+        <copyDirectory from="${jgroups.dir.3}/doc/tutorial/build" to="${build.dir}/tutorial/"/>
+    </target>
+
+    <target name="copy-tutorial4" if="jgroups.exists.4" depends="check-jgroups4"
+            description="Copies the HTML files from JGroups/doc/tutorial/build to ./build/tutorial">
+        <ant antfile="${jgroups.dir.4}/build.xml" target="tutorial" inheritall="false"/>
+        <copyDirectory from="${jgroups.dir.4}/doc/tutorial/build" to="${build.dir}/tutorial4/"/>
     </target>
 
     <target name="clean" description="Removes generated files and directories">

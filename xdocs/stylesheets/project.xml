@@ -19,7 +19,8 @@
         <menu name="Documentation">
             <item name="Trainings"               href="/workshops.html"/>
             <item name="Manual / tutorial"       href="/ug.html"/>
-            <item name="Javadoc"                 href="/javadoc/index.html"/>
+            <item name="Javadoc 3.x"             href="/javadoc/index.html"/>
+            <item name="Javadoc 4.x"             href="/javadoc4/index.html"/>
             <item name="Blogs"                   href="/blogs.html"/>
             <item name="Demos"                   href="/demos.html"/>
             <item name="Performance"             href="/performance.html"/>
