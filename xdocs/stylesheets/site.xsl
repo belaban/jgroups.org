@@ -130,7 +130,7 @@
       <xsl:comment>PAGE FOOTER</xsl:comment>
       <tr><td colspan="2">
         <div align="center"><font color="{$body-link}" size="-1"><em>
-        Copyright &#169; 2002-2015 Red Hat
+        Copyright &#169; 2002-2035 Red Hat
         </em></font></div>
       </td></tr>
 
