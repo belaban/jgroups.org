@@ -20,6 +20,13 @@
       </p>
 
       <p>
+        There is also an automated build available:
+        <pre>
+          docker run -it --rm belaban/jgroups-docker
+        </pre>
+      </p>
+
+      <p>
         The image can also be extended or modified by cloning the GitHub repo at
         <a href="https://github.com/belaban/jgroups-docker">https://github.com/belaban/jgroups-docker</a>. The README
         explains how to run the demos.
