@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="belaban@yahoo.com">Bela Ban</author>
+    <title>Running JGroups in Docker</title>
+  </properties>
+
+  <body>
+
+    <section name="Docker">
+      <p>
+        There's a JGroups image on (<a href="https://hub.docker.com/r/belaban/jgroups">dockerhub</a>) which can be used
+        to run a cluster of JGroups demos on localhost. To run an instance, execute
+        <pre>
+          docker run -it --rm belaban/jgroups
+        </pre>
+
+        This will run the latest version of JGroups (currently 4.x)
+      </p>
+
+      <p>
+        The image can also be extended or modified by cloning the GitHub repo at
+        <a href="https://github.com/belaban/jgroups-docker">https://github.com/belaban/jgroups-docker</a>. The README
+        explains how to run the demos.
+      </p>
+    </section>
+
+
+
+
+
+</body>
+</document>
+

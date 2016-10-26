@@ -34,6 +34,7 @@
         </menu>
 
         <menu name="Misc">
+            <item name="JGroups on Docker"       href="/docker.html"/>
             <item name="jgroups-raft"            href="http://belaban.github.io/jgroups-raft/"/>
             <item name="Memcached on JGroups"    href="/memcached.html"/>
             <item name="A clustered task distribution system" href="/taskdistribution.html"/>

@@ -6,62 +6,69 @@
     <title>Performance</title>
   </properties>
 
-<body>
+  <body>
+
+<section name="In need of an update">
+  <p>
+    The numbers below are out-of-date! I suggest run either MPerf or UPerf to get performance numbers for you own
+    environment.
+  </p>
+</section>
 
 
 <section name="Latest perf tests Oct 2008">
-<p>
-Quick update: on my home cluster (4 HP 4-core blades, 1GB switch), I
-achieved (on a 4 node cluster, 4 senders, udp.xml, everyone sends 5
-million 1K messages for a total of 20 million messages) <b>136'000 1K messages/sec/node</b> !
-</p>
-<p>
-I'll re-run the same tests as below in the same lab and test
-environment a bit later this year and publish some final numbers
-here. I assume I'll get even better throughput when I increase
-message size from 1K to 2.5 and 5K, as in the tests below !
-</p>
-<p>
-Okay, done: I re-ran the above tests with 1K, 2.5K and 5K
-messages. The throughputs
-are <b>137 MB/sec/node</b>, <b>150 MB/sec/node</b>
-and <b>153 MB/sec/node</b> ! I assume we get even better perf by
-changing to jumbo frames (e.g. MTUs of 8K).
-</p>
+  <p>
+    Quick update: on my home cluster (4 HP 4-core blades, 1GB switch), I
+    achieved (on a 4 node cluster, 4 senders, udp.xml, everyone sends 5
+    million 1K messages for a total of 20 million messages) <b>136'000 1K messages/sec/node</b> !
+  </p>
+  <p>
+    I'll re-run the same tests as below in the same lab and test
+    environment a bit later this year and publish some final numbers
+    here. I assume I'll get even better throughput when I increase
+    message size from 1K to 2.5 and 5K, as in the tests below !
+  </p>
+  <p>
+    Okay, done: I re-ran the above tests with 1K, 2.5K and 5K
+    messages. The throughputs
+    are <b>137 MB/sec/node</b>, <b>150 MB/sec/node</b>
+    and <b>153 MB/sec/node</b> ! I assume we get even better perf by
+    changing to jumbo frames (e.g. MTUs of 8K).
+  </p>
 </section>
 
 
 
 <section name="Performance tests August 2008">
-<p>
-The test report can be found <a
-href="perf/perf2008/Report.html">here</a>. It measures performance of
-sending 1 million messages in clusters of 4, 6, 8 and 10 nodes. The
-protocol stacks compared are UDP and TCP.
-</p>
+  <p>
+    The test report can be found <a
+          href="perf/perf2008/Report.html">here</a>. It measures performance of
+    sending 1 million messages in clusters of 4, 6, 8 and 10 nodes. The
+    protocol stacks compared are UDP and TCP.
+  </p>
 </section>
 
 
 <section name="Performance tests June 2007">
-<p>
-The test report can be found <a
-href="perf/perf2007/Report.html">here</a>. It measures performance of
-sending 1 million messages in clusters of 4, 6 and 8 nodes. The
-protocol stacks compared are UDP, SFC and TCP.
-</p>
+  <p>
+    The test report can be found <a
+          href="perf/perf2007/Report.html">here</a>. It measures performance of
+    sending 1 million messages in clusters of 4, 6 and 8 nodes. The
+    protocol stacks compared are UDP, SFC and TCP.
+  </p>
 </section>
 
-<section name="Performance tests for UDP and TCP_NIO (2006)">
-<p>
-An older test report from 2006 can be found <a href="perf/perf2006/Report.html">here</a>
-</p>
-</section>
+    <section name="Performance tests for UDP and TCP_NIO (2006)">
+      <p>
+        An older test report from 2006 can be found <a href="perf/perf2006/Report.html">here</a>
+      </p>
+    </section>
 
 
 <section name="Performance tests for TCP_NIO (2006)">
-<p>
-<a href="Perftest.html">Here</a> is a recent paper by Scott and Fu on TCP-NIO performance with JGroups.
-</p>
+  <p>
+    <a href="Perftest.html">Here</a> is a recent paper by Scott and Fu on TCP-NIO performance with JGroups.
+  </p>
 </section>
 
 
