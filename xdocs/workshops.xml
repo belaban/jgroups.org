@@ -13,7 +13,7 @@
     <p>
        The workshops are 4 day courses on the following topics:
        <ol>
-          <li>Mon: API (introductory)</li>
+          <li>Tue: API (introductory)</li>
           <li>Tue: building blocks (RPCs, distributed counters, locks etc) (medium)</li>
           <li>Wed/Thu: advanced topics and protocols (advanced)</li>
           <li>Fri: admin stuff (medium)</li>
