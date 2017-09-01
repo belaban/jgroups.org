@@ -15,10 +15,11 @@
             <item name="IRC"                     href="/irc.html"/>
         </menu>
     
-
         <menu name="Documentation">
             <item name="Trainings"               href="/workshops.html"/>
             <item name="Manual / tutorial"       href="/ug.html"/>
+            <item name="Mailing Lists"           href="https://groups.google.com/forum/#!forum/jgroups-dev"/>
+            <item name="Bug Reports"             href="/bug_reports.html"/>
             <item name="Javadoc 3.x"             href="/javadoc/index.html"/>
             <item name="Javadoc 4.x"             href="/javadoc4/index.html"/>
             <item name="Blogs"                   href="/blogs.html"/>
@@ -40,12 +41,5 @@
             <item name="A clustered task distribution system" href="/taskdistribution.html"/>
             <item name="ReplCache: variable caching in the cloud"  href="/replcache.html"/>
         </menu>
-
-        <menu name="Getting Involved">
-            <item name="Contributing"            href="/contributing.html"/>
-            <item name="Mailing Lists"           href="http://sourceforge.net/mail/?group_id=6081"/>
-            <item name="Bug Reports"             href="/bug_reports.html"/>
-        </menu>
-
     </body>
 </project>
