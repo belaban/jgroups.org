@@ -2,7 +2,8 @@
 
 # Replace with your own JGroups source installation
 jgroups.dir.3=/home/bela/JGroups-3.6-branch
-jgroups.dir.4=/home/bela/JGroups
+jgroups.dir.4=/home/bela/JGroups-4.x
+jgroups.dir.5=/home/bela/JGroups
 
 # Replace with your own JGroupsArticles installation
 jgroups.articles.dir=/home/bela/JGroupsArticles

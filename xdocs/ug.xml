@@ -12,8 +12,9 @@
 <section name="Manual JGroups">
     <p>
         <ul>
-            <li>JGroups 3.x: <a href="manual/index.html">HTML</a></li>
+            <li>JGroups 3.x: <a href="manual3/index.html">HTML</a></li>
             <li>JGroups 4.x: <a href="manual4/index.html">HTML</a></li>
+            <li>JGroups 5.x: <a href="manual5/index.html">HTML</a></li>
         </ul>
         <br/>
     </p>
@@ -23,13 +24,23 @@
 <section name="Tutorial JGroups">
     <p>
         <ul>
-            <li>JGroups 3.x: <a href="tutorial/index.html">HTML</a></li>
+            <li>JGroups 3.x: <a href="tutorial3/index.html">HTML</a></li>
             <li>JGroups 4.x: <a href="tutorial4/index.html">HTML</a></li>
+            <li>JGroups 5.x: <a href="tutorial5/index.html">HTML</a></li>
         </ul>
         <br/>
     </p>
 </section>
 
+<section name="Javadoc">
+    <p>
+        <ul>
+            <li>Javadoc 3.x: href="/javadoc3/index.html"</li>
+            <li>Javadoc 4.x: href="/javadoc4/index.html"</li>
+            <li>Javadoc 5.x: href="/javadoc5/index.html"</li>
+        </ul>
+    </p>
+</section>
 
 
 <section name="Wiki">
