@@ -278,17 +278,18 @@ Hosted by <a href="http://sourceforge.net/projects/javagroups"><img src="http://
             ##      href="images/jgroups_icon_32px.png"
             ##     type="image/png">
 
-            ## <link rel="shortcut icon" href="images/favicon.ico" />
-            <link rel="shortcut icon" href="http://static.jboss.org/images/jgroups/favicon.ico" />
+            <link rel="shortcut icon" href="images/favicon.ico" />
+            <!--link rel="shortcut icon" href="http://static.jboss.org/images/jgroups/favicon.ico" /-->
 
             
 	    ## <h1>JGroups - A Toolkit for Reliable Messaging</h1>
 
 	    <h1>
+	    JGroups - A Toolkit for Reliable Messaging
 	    ## <img src="images/jgroups-banner-1180px.png"
-	    <img src="http://static.jboss.org/images/jgroups/jgroups-banner-1180px.png"
+	    <!--img src="http://static.jboss.org/images/jgroups/jgroups-banner-1180px.png"
 	         alt="JGroups - A Toolkit for Reliable Messaging"
-	         width="100%" />
+	         width="100%" /-->
 	    </h1>
 
 

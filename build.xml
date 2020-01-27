@@ -6,6 +6,7 @@
     <property name="docs.src"             value="xdocs"/>
     <property name="build.dir"            value="build"/>
     <property name="movies.dir"           value="movies"/>
+    <property name="images.dir"           value="images"/>
     <property name="html.dir"             value="html"/>
     <property name="perf.dir"             value="perf"/>
     <property name="hsqldbr.dir"          value="hsqldbr"/>
@@ -84,7 +85,9 @@
 
         <copyDirectory from="${html.dir}" to="${build.dir}"/>
 
-        <copyDirectory from="${movies.dir}" to="${build.dir}/movies"/> 
+        <copyDirectory from="${movies.dir}" to="${build.dir}/movies"/>
+
+        <copyDirectory from="${images.dir}" to="${build.dir}/images"/>
 
         <copyDirectory from="${perf.dir}" to="${build.dir}/perf"/>
 
