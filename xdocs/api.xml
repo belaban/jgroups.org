@@ -34,7 +34,7 @@
           }
       });
       channel.<b>connect</b>("MyCluster");
-      channel.<b>send</b>(new Message(null, "hello world"));
+      channel.<b>send</b>(new ObjectMessageSerializable(null, "hello world"));
       channel.<b>close</b>();
 </pre>
 
@@ -53,8 +53,8 @@
             <p/>
 
             Then a message is sent using the <b>send()</b> method. A message contains the receiver's address
-            (null = all cluster nodes) and a byte buffer. In the example, the string "hello world" is set
-            to be the message's contents. It is serialized into the message's byte buffer.
+            (null = all cluster nodes) and a payload. In the example, the string "hello world" is set
+            to be the message's contents.
             <p/>
 
             Since the message is sent to all members, the sender will also receive it.
