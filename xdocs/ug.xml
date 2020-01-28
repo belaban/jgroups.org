@@ -35,9 +35,9 @@
 <section name="Javadoc">
     <p>
         <ul>
-            <li>Javadoc 3.x: href="/javadoc3/index.html"</li>
-            <li>Javadoc 4.x: href="/javadoc4/index.html"</li>
-            <li>Javadoc 5.x: href="/javadoc5/index.html"</li>
+            <li><a href="javadoc3/index.html">Javadoc 3.x</a></li>
+            <li><a href="javadoc4/index.html">Javadoc 4.x</a></li>
+            <li><a href="javadoc5/index.html">Javadoc 5.x</a></li>
         </ul>
     </p>
 </section>
