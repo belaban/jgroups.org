@@ -12,7 +12,7 @@
 <p>
 
 If you think you have discovered a bug, please submit a bug report 
-<a href="http://jira.jboss.com/jira/browse/JGRP">here</a>. 
+<a href="https://issues.redhat.com/browse/JGRP">here</a>. 
 You need to attach the following information (if available):
 <ul>
 <li>Version of JGroups: executing 'java org.jgroups.Version' will print its version</li>
