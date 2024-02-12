@@ -10,7 +10,7 @@
     <property name="html.dir"             value="html"/>
     <property name="perf.dir"             value="perf"/>
     <property name="hsqldbr.dir"          value="hsqldbr"/>
-    <property name="jgroups.dir.3"        value="../JGroups-3.6-branch"/>
+    <property name="jgroups.dir.3"        value="../JGroups-3.6"/>
     <property name="jgroups.dir.4"        value="../JGroups-4.x"/>
     <property name="jgroups.dir.5"        value="../JGroups"/>
     <property name="jgroups.articles.dir" value="../JGroupsArticles"/>
