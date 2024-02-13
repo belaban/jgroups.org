@@ -151,19 +151,25 @@
     <target name="copy-schema3" depends="check-jgroups-schema3"
             description="Checks whether JGroups/schema/JGroups-X.Y.xsd exists and and copies it to ./build ">
         <fail unless="jgroups.schema.exists3" message="${jgroups.dir.3}/classes/schema doesn't exist, please execute make-schema in ${jgroups.dir.3}"/>
-        <copyDirectory from="${jgroups.dir.3}/classes/schema" to="${build.dir}/schema"/>
+        <copy todir="${build.dir}/schema">
+          <fileset dir="${jgroups.dir.3}/classes/schema"/>
+        </copy>
     </target>
 
     <target name="copy-schema4" depends="check-jgroups-schema4"
             description="Checks whether JGroups/schema/JGroups-X.Y.xsd exists and and copies it to ./build ">
         <fail unless="jgroups.schema.exists4" message="${jgroups.dir.4}/classes/schema doesn't exist, please execute make-schema in ${jgroups.dir.4}"/>
-        <copyDirectory from="${jgroups.dir.4}/classes/schema" to="${build.dir}/schema"/>
+        <copy todir="${build.dir}/schema" overwrite="true">
+          <fileset dir="${jgroups.dir.4}/classes/schema"/>
+        </copy>
     </target>
 
     <target name="copy-schema5" depends="check-jgroups-schema5"
             description="Checks whether JGroups/schema/JGroups-X.Y.xsd exists and and copies it to ./build ">
         <fail unless="jgroups.schema.exists5" message="${jgroups.dir.5}/classes/schema doesn't exist, please execute make-schema in ${jgroups.dir.5}"/>
-        <copyDirectory from="${jgroups.dir.5}/classes/schema" to="${build.dir}/schema"/>
+        <copy todir="${build.dir}/schema" overwrite="true">
+          <fileset dir="${jgroups.dir.5}/classes/schema"/>
+        </copy>
     </target>
 
 
