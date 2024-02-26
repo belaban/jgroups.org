@@ -2,8 +2,8 @@
 <document>
 
     <properties>
-        <author email="belaban@yahoo.com">Bela Ban</author>
-        <title>Consulting for JGroups</title>
+        <author email="bban@redhat.com">Bela Ban</author>
+        <title>JGroups consulting</title>
     </properties>
 
     <body>
@@ -15,24 +15,20 @@
         <img style="float:right;" src="http://static.jboss.org/theme/images/common/redhat_logo.png"
              alt="Red Hat" />
         <br/>
-        <p>Commercial support for JGroups is available through <a
-                target="_blank" href="http://www.jboss.com/services/index">Red Hat</a>.
-            The following services are currently available:</p>
-        <ul>
-            <li>Development support contracts</li>
-            <li>Onsite consulting</li>
-            <li>Onsite training</li>
-        </ul>
-        <p>All support, consulting and training is provided by members of the
-            JGroups development team.
-            We support JGroups in any Java environment (under any or no J2EE
-            application server).</p>
-        <p>More information is available
-            <a target="_blank"
-               href="http://jboss.com/services/index">here</a>.
-            You may also contact Bela Ban directly,
-            email <a href="mailto:bban@redhat.com?subject=[JGroups Consulting]">bban at redhat.com</a>.</p>
-    </p>
+        
+        <p>
+          Commercial support for JGroups is available by <a target="_blank" href="https://www.redhat.com/en/services">Red
+          Hat</a>.
+        </p>
+        <p>
+          <em>Production support</em> is offered only when JGroups is used in conjunction with
+          <a target="_blank" href="https://www.redhat.com/en/technologies/jboss-middleware/application-platform">Red Hat JBoss Enterprise
+          Application Platform</a>
+        </p>
+        <p>
+           For further questions, contact Bela Ban at <a href="mailto:bban@redhat.com?subject=[JGroups Consulting]">bban at redhat.com</a>.
+        </p>
+   </p>
 </section>
 
 
