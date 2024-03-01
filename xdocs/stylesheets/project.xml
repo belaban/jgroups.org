@@ -12,7 +12,6 @@
             <item name="License"                 href="/license.html"/>
             <item name="Success Stories"         href="/success.html"/>
             <item name="Consulting"              href="/consulting.html"/>
-            <item name="IRC"                     href="/irc.html"/>
         </menu>
     
         <menu name="Documentation">
@@ -27,7 +26,6 @@
         </menu>
 
         <menu name="Download">
-            <item name="ZIP, JARs and tarballs"  href="http://sourceforge.net/project/showfiles.php?group_id=6081"/>
             <item name="Source code"             href="http://www.github.com/belaban/JGroups"/>
             <item name="Project swag"            href="http://www.cafepress.com/jbossorg/7489623"/>
         </menu>

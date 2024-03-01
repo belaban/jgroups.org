@@ -15,18 +15,24 @@
         <img style="float:right;" src="http://static.jboss.org/theme/images/common/redhat_logo.png"
              alt="Red Hat" />
         <br/>
-        
+
         <p>
-          Commercial support for JGroups is available by <a target="_blank" href="https://www.redhat.com/en/services">Red
-          Hat</a>.
+          While JGroups is sponsored by Red Hat, production support is not available from Red Hat.
+          Red Hat incorporates JGroups as a component in a number of products and provides support for those products,
+          not for custom implementations using JGroups.
         </p>
         <p>
-          <em>Production support</em> is offered only when JGroups is used in conjunction with
+          If your use case for JGroups is caching, <a href="https://www.redhat.com/en/technologies/jboss-middleware/data-grid">Red Hat Data Grid</a>
+          based upon JGroups and the Infinispan projects is a supported option.
+        </p>
+        <p>
+          Other applications that need clustering capabilities can be built in
           <a target="_blank" href="https://www.redhat.com/en/technologies/jboss-middleware/application-platform">Red Hat JBoss Enterprise
-          Application Platform</a>
-        </p>
+          Application Platform</a> using the Java EE/Jakarta EE APIs and receive production support from Red Hat.
+        </p>        
         <p>
-           For further questions, contact Bela Ban at <a href="mailto:bban@redhat.com?subject=[JGroups Consulting]">bban at redhat.com</a>.
+          For further questions, contact <a href="https://www.redhat.com/en/services">Red Hat</a>
+          or <a href="mailto:bban@redhat.com?subject=[JGroups Consulting]">Bela Ban</a>.
         </p>
    </p>
 </section>
