@@ -34,7 +34,7 @@ Resume Bela Ban</h1></center>
 </tr>
 
 <tr>
-<td>belaban@yahoo.com</td>
+<td>belaban@mailbox.org</td>
 </tr>
 
 <tr>
@@ -44,43 +44,6 @@ Resume Bela Ban</h1></center>
 </table>
 
 <table BORDER=0 CELLSPACING=0 CELLPADDING=4 WIDTH="100%" >
-<!--<tr VALIGN=TOP>
-<td WIDTH="10%"><b>OBJECTIVE</b></td>
-
-<td>
-<ul>
-<li>
-Type of position: <b>Principal Architect</b>, <b>Project Leader</b> or
-<b>Consultant</b></li>
-
-<li>
-Field:&nbsp;</li>
-
-<ul>
-<li>
-Distributed Systems, Middleware, Communication and OOT, Networking&nbsp;</li>
-
-<li>
-Large-scale reliable data dissemination (e.g. video on demand)</li>
-
-<li>
-Wireless systems</li>
-
-<li>
-Reliable and Fault-Tolerant Systems, Clustering, High Availability, Replication</li>
-
-<li>
-Message Buses (publish/subscribe)&nbsp;</li>
-
-<li>
-Components / design patterns for networks</li>
-
-<li>
-Consulting for projects using <a href="http://www.jgroups.org">JGroups</a></li>
-</ul>
-</ul>
-</td>
-</tr>-->
 
 <tr>
 <td></td>
@@ -109,14 +72,11 @@ Consulting for projects using <a href="http://www.jgroups.org">JGroups</a></li>
 
 <tr>
 <td>PhD Computer Science, University of Zurich</td>
-
 <td><i>Nov 1997</i></td>
 </tr>
 
 <tr>
-<td>Masters degree in Computer Science, English and Economics, University
-of Zurich</td>
-
+<td>Masters degree in Computer Science, English and Economics, University of Zurich</td>
 <td><i>June 1992</i></td>
 </tr>
 </table>
@@ -135,6 +95,8 @@ of Zurich</td>
 <td></td>
 </tr>
 
+
+
 <tr VALIGN=TOP>
 <td WIDTH="10%"><b>WORK EXPERIENCE</b></td>
 
@@ -143,30 +105,73 @@ of Zurich</td>
 <caption><col width=90%><col width=10%></caption>
 
 <tr>
-<td WIDTH="90%"><b>Lead JGroups</b></td>
-
-<td><i>2003-</i></td>
+    <td WIDTH="90%"><b>Lead jgroups-raft</b></td>
+    <td><i>2014-2023</i></td>
+</tr>
+<tr>
+    <td>Red Hat, Kreuzlingen, Switzerland</td>
+    <tr>
+    <td>
+        <ul>
+            <li>
+                Designed and implemented <a href="https://github.com/jgroups-extras/jgroups-raft">jgroups-raft</a>.
+                This is a complete <a href="https://raft.github.io/">Raft</a> implementation in Java based on JGroups.
+            </li>
+        </ul>
+    </td>
+    <td></td>
 </tr>
 
 <tr>
-<td>JBoss / Red Hat, Kreuzlingen, Switzerland</td>
-
-<tr NOSAVE>
-<td NOSAVE>JBoss Clustering team</td>
-
-<td></td>
+  <td WIDTH="90%"><b>Lead JBossCache</b></td>
+  <td><i>2003-2006</i></td>
 </tr>
+<tr>
+  <td>JBoss, San Jose, California and Kreuzlingen, Switzerland</td>
+  <tr>
+    <td>
+    <ul>
+    <li>
+    Designed and implemented <a href="http://www.jboss.org/jbosscache">JBossCache</a>. Uses JGroups to replicate and
+    distribute its contents to a cluster of hosts. Included JTXA support, security, encryption etc.
+    Used by JBoss Clustering (JBoss Application server).
+    Predecessor to <a href="http://www.infinispan.org">Infinispan</a>).
+    </li>
+
+    </ul>
+    </td>
+
+    <td></td>
+</tr>
+
+
+<tr>
+<td WIDTH="90%"><b>Lead JGroups</b></td>
+<td><i>2003-present</i></td>
+</tr>
+<tr>
+<td>JBoss (2003-2006) / Red Hat/IBM (2006-2019) / IBM (2025-present), San Jose CA and Kreuzlingen, Switzerland</td>
 
 <tr>
 <td>
 <ul>
 <li>
 Lead developer of the <a href="http://www.jgroups.org">JGroups</a> project, used for clustering in the
-<a href="http://www.jboss.com">JBoss application server</a> and <a href="http://www.infinispan.org">Infinispan</a>.
+<a href="http://www.jboss.com">JBoss application server</a>, cluster communication in
+    <a href="http://www.infinispan.org">Infinispan</a> and <a href="https://www.keycloak.org/">Keycloak</a>.
 </li>
-
 <li>
-Designed and implemented <a href="http://www.jboss.org/jbosscache">JBossCache</a> (predecessor of Infinispan).
+    Interaction with the Infinispan and Keycloak teams to performance tune their use of JGroups
+</li>
+<li>
+    Designed RELAY-XXX suite of protocols to enable
+    <a href="https://infinispan.org/docs/stable/titles/xsite/xsite.html">Infinispan's cross site replication</a>
+</li>
+<li>
+    Designed
+    <a href="https://github.com/infinispan/infinispan-designs/blob/main/RAC%3A-Reliable-Asynchronous-Clustering.asciidoc">IRAC</a>
+    used to replicate data modifications across geographically separate data sites. Bypasses the disadvantages of
+    synchronous replication (latency) with almost the full guarantees of reliability.
 </li>
 
 </ul>
@@ -175,8 +180,6 @@ Designed and implemented <a href="http://www.jboss.org/jbosscache">JBossCache</a
 <td></td>
 </tr>
 
-<td></td>
-</tr>
 
 <tr>
 <td></td>
