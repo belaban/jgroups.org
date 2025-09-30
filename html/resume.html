@@ -116,6 +116,7 @@ Resume Bela Ban</h1></center>
             <li>
                 Designed and implemented <a href="https://github.com/jgroups-extras/jgroups-raft">jgroups-raft</a>.
                 This is a complete <a href="https://raft.github.io/">Raft</a> implementation in Java based on JGroups.
+                Worked with the Infinispan team to integrate this for their CP part (currently: counters).
             </li>
         </ul>
     </td>
@@ -133,7 +134,7 @@ Resume Bela Ban</h1></center>
     <ul>
     <li>
     Designed and implemented <a href="http://www.jboss.org/jbosscache">JBossCache</a>. Uses JGroups to replicate and
-    distribute its contents to a cluster of hosts. Included JTXA support, security, encryption etc.
+    distribute its contents to a cluster. Included JTXA support, security, encryption etc.
     Used by JBoss Clustering (JBoss Application server).
     Predecessor to <a href="http://www.infinispan.org">Infinispan</a>).
     </li>
@@ -164,14 +165,22 @@ Lead developer of the <a href="http://www.jgroups.org">JGroups</a> project, used
     Interaction with the Infinispan and Keycloak teams to performance tune their use of JGroups
 </li>
 <li>
-    Designed RELAY-XXX suite of protocols to enable
-    <a href="https://infinispan.org/docs/stable/titles/xsite/xsite.html">Infinispan's cross site replication</a>
+    Designed RELAY-X suite of protocols to enable Infinispan's
+    <a href="https://infinispan.org/docs/stable/titles/xsite/xsite.html">cross site replication</a>.
 </li>
 <li>
     Designed
     <a href="https://github.com/infinispan/infinispan-designs/blob/main/RAC%3A-Reliable-Asynchronous-Clustering.asciidoc">IRAC</a>
-    used to replicate data modifications across geographically separate data sites. Bypasses the disadvantages of
-    synchronous replication (latency) with almost the full guarantees of reliability.
+    used to replicate data modifications across geographically separate sites. Eliminates the disadvantages of
+    synchronous replication (latency) while keeping most of the advantages (reliability).
+</li>
+
+<li>
+    Consulting with customers regarding their use of Infinispan / JGroups and performance tuning.
+</li>
+
+<li>
+    Mentoring, both in-house and externally (universities).
 </li>
 
 </ul>
@@ -219,8 +228,7 @@ and failover of crashed management servers to geographically distant backup
 server(s). Co-lead for overall project.</li>
 
 <li>
-Management and development of the <a href="http://www.jgroups.org">JGroups</a>
-open source project</li>
+Used and further developed the <a href="http://www.jgroups.org">JGroups</a> open source project</li>
 </ul>
 </td>
 
