@@ -93,6 +93,8 @@
 
         <copyDirectory from="${hsqldbr.dir}" to="${build.dir}/hsqldbr"/>
 
+        <copyDirectory from="Papers" to="${build.dir}/Papers"/>
+
         <antcall target="copy-schema3" description="Copies the schema dir to build/schema"/>
         <antcall target="copy-schema4" description="Copies the schema dir to build/schema"/>
         <antcall target="copy-schema5" description="Copies the schema dir to build/schema"/>
